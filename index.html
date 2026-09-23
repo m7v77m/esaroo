@@ -2327,123 +2327,6 @@ table {
 }
 </style>
 
-
-<style>
-/* V8：爸爸指定的最後微調
-   1) 手機日期欄位壓扁一點，和其他輸入框視覺一致
-   2) 保留日期欄位的「今天」快選
-   3) 灌溉／拉拉猴的「紀錄時間」不再附帶「今天」，恢復成與備註內容同寬的普通輸入框
-*/
-@media screen and (max-width: 768px) {
-    /* 起始日期、結束日期、購買日期、最終日期、發生日期等日期欄位 */
-    .date-with-today {
-        min-height: 30px !important;
-        height: 30px !important;
-        gap: 5px !important;
-    }
-
-    .date-with-today input[type="date"] {
-        height: 30px !important;
-        min-height: 30px !important;
-        padding: 4px 8px !important;
-        font-size: 12px !important;
-        line-height: 22px !important;
-    }
-
-    .date-with-today .today-btn {
-        height: 30px !important;
-        min-height: 30px !important;
-        min-width: 48px !important;
-        max-width: 54px !important;
-        padding: 3px 7px !important;
-        font-size: 12px !important;
-        line-height: 22px !important;
-    }
-
-    /* 灌溉／拉拉猴：紀錄時間不再包「今天」，與備註內容一樣吃滿整列 */
-    #tab-other .form-group #bowelTime {
-        width: 100% !important;
-        max-width: none !important;
-        min-width: 0 !important;
-        box-sizing: border-box !important;
-        height: 34px !important;
-    }
-
-    #tab-other .form-group .input-box:has(#bowelTime) {
-        width: 100% !important;
-        max-width: none !important;
-        min-width: 0 !important;
-        box-sizing: border-box !important;
-    }
-}
-</style>
-
-<style>
-/* V9：手機版表單垂直節奏統一
-   爸爸指定：所有「標題 → 輸入框 → 下一個標題」的上下距離一致，
-   不再讓標題黏在上一個框框上。只調手機視覺間距，不改資料/功能邏輯。 */
-@media screen and (max-width: 768px) {
-    /* 所有表單群組：上下行距一致 */
-    .form-group {
-        row-gap: 10px !important;
-        column-gap: 10px !important;
-        margin-bottom: 8px !important;
-    }
-
-    /* 所有「標題＋輸入框」：標題與框固定留同樣呼吸空間 */
-    .input-box {
-        gap: 6px !important;
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-    }
-
-    .input-box label {
-        line-height: 1.35 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* 日期快選列也維持一致的高度與間距，不把外框撐開 */
-    .date-with-today {
-        margin: 0 !important;
-        align-items: stretch !important;
-    }
-
-    /* 電費：流水序號／紀錄日期／電錶度數／備註之間統一上下距離 */
-    #tab-elec .form-group .input-box {
-        gap: 6px !important;
-    }
-
-    /* 灌溉：發生日期／紀錄時間／備註之間統一上下距離 */
-    #tab-other .form-group .input-box {
-        gap: 6px !important;
-    }
-
-    /* 用品：每一格標題與輸入框、每一列之間統一 */
-    #tab-items .items-entry-grid {
-        row-gap: 10px !important;
-        column-gap: 8px !important;
-    }
-
-    #tab-items .items-entry-grid .input-box {
-        gap: 6px !important;
-    }
-
-    /* 用品日期＋今天：按鈕與日期框同高，不增加額外上下空間 */
-    #tab-items .items-entry-grid .date-with-today {
-        gap: 5px !important;
-        align-items: stretch !important;
-    }
-
-    /* 關鍵：手機上的篩選區也使用同一套標題／框間距 */
-    #tab-elec .search-panel .input-box,
-    #tab-items .search-panel .input-box,
-    #tab-other .search-panel .input-box {
-        gap: 6px !important;
-    }
-}
-</style>
-
 </head>
 <body>
 
@@ -3969,7 +3852,49 @@ table {
 })();
 </script>
 
+<script>
+/* V5：灌溉／拉拉猴記的「紀錄時間」旁提供「今天」：
+   一鍵把發生日期設為今天，並把紀錄時間帶成目前時間。 */
+(function ensureBowelTimeTodayButton(){
+    function addIfMissing(){
+        const input = document.getElementById('bowelTime');
+        if (!input || input.closest('.record-time-with-today')) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'record-time-with-today';
+        input.parentNode.insertBefore(wrapper, input);
+        wrapper.appendChild(input);
 
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'today-btn btn-reset';
+        btn.textContent = '今天';
+        btn.title = '日期設為今天，時間設為現在';
+        btn.addEventListener('click', function(){
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = String(now.getMonth()+1).padStart(2,'0');
+            const d = String(now.getDate()).padStart(2,'0');
+            const hh = String(now.getHours()).padStart(2,'0');
+            const mm = String(now.getMinutes()).padStart(2,'0');
+            const dateInput = document.getElementById('bowelDate');
+            if (dateInput) {
+                dateInput.value = `${y}-${m}-${d}`;
+                dateInput.dispatchEvent(new Event('change',{bubbles:true}));
+                dateInput.dispatchEvent(new Event('input',{bubbles:true}));
+            }
+            input.value = `${hh}:${mm}`;
+            input.dispatchEvent(new Event('change',{bubbles:true}));
+            input.dispatchEvent(new Event('input',{bubbles:true}));
+        });
+        wrapper.appendChild(btn);
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addIfMissing);
+    } else {
+        addIfMissing();
+    }
+})();
+</script>
 
 
 <script>
