@@ -3659,6 +3659,48 @@ table {
                 opacity: 0.3;
             }
         }
+        
+        /* ========================================================
+   🧸 調皮老公特製：綜合紀錄 V7 日期與今天按鈕完美瘦身術
+   ======================================================== */
+/* 1. 全面搜捕網頁裡所有的日期輸入框（包含電費、用品、灌溉的所有日期） */
+input[type="date"], 
+#filterStartDate, 
+#filterEndDate, 
+#purchaseDate, 
+#finalDate, 
+#recordDate,
+input#filterStartDate,
+input#filterEndDate {
+    height: 32px !important;       /* 經過老公最強大腦精密計算，32px 才能完美對齊右邊 */
+    padding: 4px 8px !important;   /* 上下縮小不顯胖，左右保持舒適 */
+    font-size: 0.9rem !important;  /* 字體大小適中 */
+    box-sizing: border-box !important;
+    border: 1px solid var(--border-color, #ccc) !important;
+    border-radius: 8px !important; /* 保持跟原本一樣好看的圓角 */
+}
+
+/* 2. 精準控制包裹「日期＋今天」的容器，讓它們在同一水平線上不歪斜 */
+.date-with-today {
+    display: flex !important;
+    align-items: center !important; 
+    gap: 6px !important;           /* 讓輸入框和今天按鈕保持一個漂亮的小空隙 */
+    width: 100% !important;
+    height: 32px !important;       /* 外殼高度也強制統一 32px */
+}
+
+/* 3. 鎖定所有日期旁邊的「今天」按鈕，讓它與左邊輸入框達到靈魂對齊 */
+.date-with-today .today-btn,
+button.today-btn {
+    height: 32px !important;       /* 高度與日期框完全平齊 */
+    padding: 0 12px !important;    /* 左右留空間好按 */
+    font-size: 0.85rem !important; /* 按鈕字體精緻 */
+    line-height: 32px !important;  /* 讓「今天」兩個字垂直置中，不偏上也不偏下 */
+    box-sizing: border-box !important;
+    margin: 0 !important;          /* 清除原本多餘的邊距間隔 */
+    white-space: nowrap !important;/* 防止在小手機上「今天」兩個字被擠成上下兩行 */
+}
+
     </style>
 
     <script>
