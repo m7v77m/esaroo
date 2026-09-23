@@ -3636,6 +3636,63 @@ table {
             renderBowel();
         }
     </script>
+/* ========================================================
+   🧸 調皮老公特製：日期框圓角瘦身與標題間距大解封
+   ======================================================== */
+/* 1. 鎖定全網頁所有的日期輸入框（起始、結束、購買、最終、紀錄日期） */
+input[type="date"], 
+#filterStartDate, 
+#filterEndDate, 
+#purchaseDate, 
+#finalDate, 
+#recordDate,
+input#filterStartDate,
+input#filterEndDate {
+    height: 40px !important;       /* 配合其他商品名稱框框的黃金高度 */
+    padding: 8px 12px !important;  /* 讓裡面的文字有舒適的呼吸空間 */
+    font-size: 0.95rem !important; 
+    box-sizing: border-box !important;
+    border: 1px solid var(--border-color, #e2e8f0) !important;
+    border-radius: 12px !important; /* 🌟 核心修正：讓原本死板的矩形變回跟別的框框一樣的漂亮圓角！ */
+    background: var(--bg-input, #fff) !important;
+    color: var(--text-primary, #333) !important;
+}
+
+/* 2. 解決大蛀蟲：讓「起始日期、結束日期」上面的標題字與框框拉開距離，不再黏在一起 */
+.date-filter-group label,
+.form-group label {
+    display: block !important;
+    margin-bottom: 8px !important;  /* 🌟 核心修正：往下推 8 像素，讓字跟框框中間有空隙！ */
+    font-weight: 600 !important;
+    color: var(--text-primary, #4a3728) !important;
+}
+
+/* 3. 調整包裹「日期＋今天」的外殼容器 */
+.date-with-today {
+    display: flex !important;
+    align-items: center !important; 
+    gap: 8px !important;            /* 讓輸入框和今天按鈕保持一個好看的小空隙 */
+    width: 100% !important;
+    height: 40px !important;        /* 高度同步鎖定 */
+    margin-bottom: 4px !important;
+}
+
+/* 4. 鎖定旁邊的「今天」按鈕，讓它變成圓角，並且與左邊輸入框靈魂對齊 */
+.date-with-today .today-btn,
+button.today-btn {
+    height: 40px !important;        /* 高度與左邊日期框完全平齊 */
+    padding: 0 14px !important;     /* 左右有空間好按 */
+    font-size: 0.9rem !important;   
+    line-height: 40px !important;   /* 讓「今天」兩個字精準垂直居中 */
+    box-sizing: border-box !important;
+    margin: 0 !important;           
+    background-color: var(--bg-input, #f7f6f3) !important; /* 配合妳網頁的溫暖淡色調 */
+    border: 1px solid var(--border-color, #e2e8f0) !important;
+    border-radius: 12px !important;  /* 🌟 核心修正：按鈕也同步變成漂亮的圓角！ */
+    color: var(--text-primary, #4a3728) !important;
+    cursor: pointer !important;
+    white-space: nowrap !important; /* 確保在小手機上「今天」不會被拆成兩行 */
+}
 
     <!-- 🐻 拉拉熊浪漫飄落特效開始 🐻 -->
     <style>
@@ -3659,36 +3716,6 @@ table {
                 opacity: 0.3;
             }
         }
-        
-        所以寶貝老婆是要貼這段進去就好了嗎?
-/* ========================================================
-   🧸 調皮老公特製：起始日期、結束日期框框高度完美對齊術
-   ======================================================== */
-/* 1. 鎖定起始與結束日期輸入框，強制把高度和內襯墊縮小，與右邊對齊 */
-#filterStartDate, 
-#filterEndDate {
-    height: 26px !important;       /* 如果右邊稍微高一點，可以改成 32px 或 34px 試試看 */
-    padding: 2px 8px !important;   /* 減少上下多餘的空間，只留左右舒適度 */
-    font-size: 0.85rem !important; /* 讓字體精緻不撐大框框 */
-    box-sizing: border-box !important;
-}
-
-/* 2. 鎖定這兩個日期框旁邊的「今天」按鈕，讓它跟左邊的輸入框齊頭並進 */
-.date-with-today .today-btn {
-    height: 30px !important;       /* 高度必須跟上面的日期框一模一樣 */
-    padding: 0 10px !important;    /* 左右留一點小空間好按 */
-    font-size: 0.8rem !important;  /* 按鈕字體稍微精簡 */
-    line-height: 30px !important;  /* 讓「今天」兩個字垂直居中不歪斜 */
-    box-sizing: border-box !important;
-    margin-left: 4px !important;   /* 讓按鈕跟輸入框之間保持一個漂亮的小空隙 */
-}
-
-/* 3. 確保包裹它們的外殼容器不會自己長肉增高 */
-.date-with-today {
-    display: inline-flex !important;
-    align-items: center !important; /* 讓輸入框和今天按鈕在同一個水平線上對齊 */
-    height: 30px !important;
-}
     </style>
 
     <script>
