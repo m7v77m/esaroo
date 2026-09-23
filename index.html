@@ -2198,6 +2198,135 @@ table {
 }
 </style>
 
+
+<style>
+/* ============================================================
+   V7：用品手機頁「真正滿版」結構修正
+   不再和舊桌機 58/42% flex 規則打架：手機直接把用品新增卡片
+   從 top-controls-wrapper 的桌機雙欄結構脫離，獨立吃滿 tab-items。
+   其他功能與資料邏輯不動。
+   ============================================================ */
+@media screen and (max-width: 768px) {
+    /* 用品頁本體：左右只留手機卡片內距。 */
+    #tab-items.tab-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        padding: 10px !important;
+        overflow: visible !important;
+    }
+
+    /* 搜尋區不顯示；真正的用品輸入卡片由 JS 移到 wrapper 外。 */
+    #tab-items .search-panel.tab-search-panel {
+        display: none !important;
+    }
+
+    /* JS 搬移後，這個 wrapper 只剩隱藏搜尋區；不再參與用品版面寬度計算。 */
+    #tab-items .top-controls-wrapper {
+        display: contents !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 關鍵：用品新增卡片直接成為 tab-items 的手機版區塊。 */
+    #tab-items > .batch-panel,
+    #tab-items .mobile-items-batch-panel {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        flex: 0 0 100% !important;
+        margin: 0 0 10px 0 !important;
+        padding: 10px !important;
+        box-sizing: border-box !important;
+        align-self: stretch !important;
+        overflow: visible !important;
+    }
+
+    #tab-items .items-stats,
+    #tab-items .items-entry-area,
+    #tab-items .items-entry-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    #tab-items .items-stats {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        padding: 8px 6px !important;
+        margin: 0 0 8px 0 !important;
+        min-height: 0 !important;
+    }
+
+    #tab-items .items-entry-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+        gap: 8px !important;
+        align-items: end !important;
+    }
+
+    #tab-items .items-entry-grid > div,
+    #tab-items .items-entry-grid .input-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    #tab-items .items-entry-grid input,
+    #tab-items .items-entry-grid select,
+    #tab-items .items-entry-grid button {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 購買日期／最終日期：日期欄 + 今天，永遠待在自己的格子。 */
+    #tab-items .items-entry-grid .date-with-today {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        gap: 5px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    #tab-items .items-entry-grid .date-with-today input[type="date"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    #tab-items .items-entry-grid .today-btn {
+        width: auto !important;
+        min-width: 50px !important;
+        max-width: 56px !important;
+        height: 36px !important;
+        padding: 5px 7px !important;
+        box-sizing: border-box !important;
+        white-space: nowrap !important;
+        flex: none !important;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    #tab-items .items-entry-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+</style>
+
 </head>
 <body>
 
@@ -3764,6 +3893,33 @@ table {
     } else {
         addIfMissing();
     }
+})();
+</script>
+
+
+<script>
+/* V7：手機用品頁結構脫離桌機 58/42% flex。
+   只在手機執行；桌機版 DOM/版面完全不動。 */
+(function detachItemsPanelForMobile(){
+    function apply(){
+        if (!window.matchMedia('(max-width: 768px)').matches) return;
+        const tab = document.getElementById('tab-items');
+        const wrapper = tab && tab.querySelector(':scope > .top-controls-wrapper');
+        const panel = wrapper && wrapper.querySelector(':scope > .batch-panel');
+        if (!tab || !wrapper || !panel) return;
+        if (panel.parentElement !== tab) {
+            panel.classList.add('mobile-items-batch-panel');
+            tab.insertBefore(panel, wrapper.nextSibling);
+        }
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', apply);
+    } else {
+        apply();
+    }
+    window.addEventListener('resize', function(){
+        if (window.matchMedia('(max-width: 768px)').matches) apply();
+    });
 })();
 </script>
 
