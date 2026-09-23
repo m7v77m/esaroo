@@ -2377,6 +2377,73 @@ table {
     }
 }
 </style>
+
+<style>
+/* V9：手機版表單垂直節奏統一
+   爸爸指定：所有「標題 → 輸入框 → 下一個標題」的上下距離一致，
+   不再讓標題黏在上一個框框上。只調手機視覺間距，不改資料/功能邏輯。 */
+@media screen and (max-width: 768px) {
+    /* 所有表單群組：上下行距一致 */
+    .form-group {
+        row-gap: 10px !important;
+        column-gap: 10px !important;
+        margin-bottom: 8px !important;
+    }
+
+    /* 所有「標題＋輸入框」：標題與框固定留同樣呼吸空間 */
+    .input-box {
+        gap: 6px !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .input-box label {
+        line-height: 1.35 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 日期快選列也維持一致的高度與間距，不把外框撐開 */
+    .date-with-today {
+        margin: 0 !important;
+        align-items: stretch !important;
+    }
+
+    /* 電費：流水序號／紀錄日期／電錶度數／備註之間統一上下距離 */
+    #tab-elec .form-group .input-box {
+        gap: 6px !important;
+    }
+
+    /* 灌溉：發生日期／紀錄時間／備註之間統一上下距離 */
+    #tab-other .form-group .input-box {
+        gap: 6px !important;
+    }
+
+    /* 用品：每一格標題與輸入框、每一列之間統一 */
+    #tab-items .items-entry-grid {
+        row-gap: 10px !important;
+        column-gap: 8px !important;
+    }
+
+    #tab-items .items-entry-grid .input-box {
+        gap: 6px !important;
+    }
+
+    /* 用品日期＋今天：按鈕與日期框同高，不增加額外上下空間 */
+    #tab-items .items-entry-grid .date-with-today {
+        gap: 5px !important;
+        align-items: stretch !important;
+    }
+
+    /* 關鍵：手機上的篩選區也使用同一套標題／框間距 */
+    #tab-elec .search-panel .input-box,
+    #tab-items .search-panel .input-box,
+    #tab-other .search-panel .input-box {
+        gap: 6px !important;
+    }
+}
+</style>
+
 </head>
 <body>
 
