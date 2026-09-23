@@ -3648,12 +3648,12 @@ input[type="date"],
 #recordDate,
 input#filterStartDate,
 input#filterEndDate {
-    height: 40px !important;       /* 配合其他商品名稱框框的黃金高度 */
+    height: 30px !important;       /* 配合其他商品名稱框框的黃金高度 */
     padding: 8px 12px !important;  /* 讓裡面的文字有舒適的呼吸空間 */
-    font-size: 0.95rem !important; 
+    font-size: 1.2rem !important; 
     box-sizing: border-box !important;
     border: 1px solid var(--border-color, #e2e8f0) !important;
-    border-radius: 12px !important; /* 🌟 核心修正：讓原本死板的矩形變回跟別的框框一樣的漂亮圓角！ */
+    border-radius: 20px !important; /* 🌟 核心修正：讓原本死板的矩形變回跟別的框框一樣的漂亮圓角！ */
     background: var(--bg-input, #fff) !important;
     color: var(--text-primary, #333) !important;
 }
@@ -3673,14 +3673,14 @@ input#filterEndDate {
     align-items: center !important; 
     gap: 8px !important;            /* 讓輸入框和今天按鈕保持一個好看的小空隙 */
     width: 100% !important;
-    height: 40px !important;        /* 高度同步鎖定 */
-    margin-bottom: 4px !important;
+    height: 30px !important;        /* 高度同步鎖定 */
+    margin-bottom: 8px !important;
 }
 
 /* 4. 鎖定旁邊的「今天」按鈕，讓它變成圓角，並且與左邊輸入框靈魂對齊 */
 .date-with-today .today-btn,
 button.today-btn {
-    height: 40px !important;        /* 高度與左邊日期框完全平齊 */
+    height: 30px !important;        /* 高度與左邊日期框完全平齊 */
     padding: 0 14px !important;     /* 左右有空間好按 */
     font-size: 0.9rem !important;   
     line-height: 40px !important;   /* 讓「今天」兩個字精準垂直居中 */
