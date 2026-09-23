@@ -1718,6 +1718,139 @@ table {
     }
 }
 </style>
+
+<style>
+/* ============================================================
+   V4 手機版修整：用品頁滿版 + 日期今天按鈕不溢出
+   只修手機版面，不改資料與功能邏輯。
+   ============================================================ */
+@media screen and (max-width: 768px) {
+    /* 用品頁：搜尋區已隱藏後，新增紀錄區必須真正吃滿整個手機寬度。
+       避免被桌機版 42% max-width 卡在左側。 */
+    #tab-items .top-controls-wrapper {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        margin: 0 0 10px 0 !important;
+        padding: 0 !important;
+    }
+
+    #tab-items .batch-panel {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        overflow: visible !important;
+    }
+
+    #tab-items .items-stats {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 用品新增表單：兩欄平衡排列，避免商品名稱被擠成直排。 */
+    #tab-items .items-entry-area,
+    #tab-items .items-entry-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    #tab-items .items-entry-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    #tab-items .items-entry-grid > div,
+    #tab-items .items-entry-grid .input-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    #tab-items .items-entry-grid input,
+    #tab-items .items-entry-grid select {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 日期＋今天：日期欄吃剩餘空間，今天按鈕固定，不把整格撐出去。 */
+    #tab-items .items-entry-grid .date-with-today {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        gap: 4px !important;
+        box-sizing: border-box !important;
+    }
+
+    #tab-items .items-entry-grid .date-with-today input[type="date"] {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    #tab-items .items-entry-grid .today-btn {
+        width: auto !important;
+        min-width: 48px !important;
+        max-width: 58px !important;
+        height: 36px !important;
+        padding: 5px 7px !important;
+        box-sizing: border-box !important;
+        white-space: nowrap !important;
+        flex: none !important;
+    }
+
+    /* 灌溉／拉拉猴記錄日期（發生日期）同樣確保今天按鈕在框內。 */
+    #tab-other .date-with-today {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        gap: 6px !important;
+        box-sizing: border-box !important;
+    }
+
+    #tab-other .date-with-today input[type="date"] {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    #tab-other .today-btn {
+        width: auto !important;
+        min-width: 52px !important;
+        height: 38px !important;
+        padding: 6px 10px !important;
+        box-sizing: border-box !important;
+        white-space: nowrap !important;
+    }
+}
+
+/* 寬度非常小的手機：用品新增表單改單欄，優先保證所有輸入框完整可用。 */
+@media screen and (max-width: 430px) {
+    #tab-items .items-entry-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+</style>
+
 </head>
 <body>
 
@@ -3205,6 +3338,41 @@ table {
     document.addEventListener('click', function(){
         if(window.matchMedia('(max-width: 768px)').matches) closeMenus();
     });
+})();
+</script>
+
+
+<script>
+/* V4 防呆：確保灌溉／拉拉猴記錄日期一定有「今天」按鈕。 */
+(function ensureBowelTodayButton(){
+    function addIfMissing(){
+        const input = document.getElementById('bowelDate');
+        if (!input || input.closest('.date-with-today')) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'date-with-today';
+        input.parentNode.insertBefore(wrapper, input);
+        wrapper.appendChild(input);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'today-btn btn-reset';
+        btn.textContent = '今天';
+        btn.title = '填入今天日期';
+        btn.addEventListener('click', function(){
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = String(now.getMonth()+1).padStart(2,'0');
+            const d = String(now.getDate()).padStart(2,'0');
+            input.value = `${y}-${m}-${d}`;
+            input.dispatchEvent(new Event('change',{bubbles:true}));
+            input.dispatchEvent(new Event('input',{bubbles:true}));
+        });
+        wrapper.appendChild(btn);
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addIfMissing);
+    } else {
+        addIfMissing();
+    }
 })();
 </script>
 
