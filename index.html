@@ -1717,6 +1717,118 @@ table {
         white-space: normal !important;
     }
 }
+
+/* ============================================================
+   V5：用品頁滿版 + 日期今天；灌溉「紀錄時間」今天快選
+   只覆蓋手機版最後的版面，不改資料邏輯。
+   ============================================================ */
+@media screen and (max-width: 768px) {
+    /* 用品頁：既然「用品紀錄搜尋」已移除，新增用品區直接吃滿整張手機卡片。 */
+    #tab-items .search-panel.tab-search-panel {
+        display: none !important;
+    }
+    #tab-items .top-controls-wrapper {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-items .batch-panel {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+    }
+    #tab-items .items-entry-area,
+    #tab-items .items-entry-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    /* 小螢幕採兩欄，節省高度；最窄手機再由下方規則改回單欄。 */
+    #tab-items .items-entry-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+        gap: 8px !important;
+    }
+    #tab-items .items-entry-grid > div {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    #tab-items .items-entry-grid .input-box,
+    #tab-items .items-entry-grid input,
+    #tab-items .items-entry-grid select {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-items .items-entry-grid .date-with-today {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        gap: 5px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-items .items-entry-grid .date-with-today input[type="date"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-items .items-entry-grid .today-btn {
+        width: auto !important;
+        min-width: 50px !important;
+        max-width: 56px !important;
+        height: 36px !important;
+        padding: 5px 7px !important;
+        box-sizing: border-box !important;
+        white-space: nowrap !important;
+    }
+
+    /* 灌溉頁：紀錄時間旁的「今天」按鈕，整列都鎖在大卡片內。 */
+    #tab-other .record-time-with-today {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        gap: 6px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-other .record-time-with-today input[type="time"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-other .record-time-with-today .today-btn {
+        width: auto !important;
+        min-width: 52px !important;
+        max-width: 60px !important;
+        height: 38px !important;
+        padding: 6px 9px !important;
+        box-sizing: border-box !important;
+        white-space: nowrap !important;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    #tab-items .items-entry-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
 </style>
 
 <style>
@@ -1844,6 +1956,128 @@ table {
 }
 
 /* 寬度非常小的手機：用品新增表單改單欄，優先保證所有輸入框完整可用。 */
+@media screen and (max-width: 430px) {
+    #tab-items .items-entry-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+</style>
+
+
+<style>
+/* ============================================================
+   V5 最終手機覆蓋：以本區規則為最後優先權
+   用品搜尋隱藏、用品新增區滿版、兩個用品日期＋今天、
+   灌溉紀錄時間＋今天；不改資料處理邏輯。
+   ============================================================ */
+@media screen and (max-width: 768px) {
+    /* 用品頁不再顯示搜尋區，新增紀錄區直接滿版。 */
+    #tab-items .search-panel.tab-search-panel {
+        display: none !important;
+    }
+    #tab-items .top-controls-wrapper {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 0 10px 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-items .batch-panel {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+    }
+    #tab-items .items-stats,
+    #tab-items .items-entry-area,
+    #tab-items .items-entry-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-items .items-entry-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important;
+        gap: 8px !important;
+    }
+    #tab-items .items-entry-grid > div,
+    #tab-items .items-entry-grid .input-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-items .items-entry-grid input,
+    #tab-items .items-entry-grid select {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 購買日期／最終日期：日期欄＋今天按鈕都鎖在自己的格子裡。 */
+    #tab-items .items-entry-grid .date-with-today {
+        display: grid !important;
+        grid-template-columns: minmax(0,1fr) auto !important;
+        gap: 5px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-items .items-entry-grid .date-with-today input[type="date"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-items .items-entry-grid .today-btn {
+        width: auto !important;
+        min-width: 50px !important;
+        max-width: 56px !important;
+        height: 36px !important;
+        padding: 5px 7px !important;
+        box-sizing: border-box !important;
+        white-space: nowrap !important;
+        flex: none !important;
+    }
+
+    /* 灌溉頁：爸爸指定的是「紀錄時間」旁的今天。
+       按下後會把日期設為今天、時間帶成目前時間。 */
+    #tab-other .record-time-with-today {
+        display: grid !important;
+        grid-template-columns: minmax(0,1fr) auto !important;
+        gap: 6px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-other .record-time-with-today input[type="time"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    #tab-other .record-time-with-today .today-btn {
+        width: auto !important;
+        min-width: 52px !important;
+        max-width: 60px !important;
+        height: 38px !important;
+        padding: 6px 9px !important;
+        box-sizing: border-box !important;
+        white-space: nowrap !important;
+        flex: none !important;
+    }
+}
 @media screen and (max-width: 430px) {
     #tab-items .items-entry-grid {
         grid-template-columns: 1fr !important;
@@ -3258,7 +3492,7 @@ table {
         'elecFilterStartDate', 'elecFilterEndDate',
         'elecDate',
         'itemFilterStartDate', 'itemFilterEndDate',
-        'itemStartDate',
+        'itemStartDate', 'itemEndDate',
         'bowelFilterStartDate', 'bowelFilterEndDate',
         'bowelDate'
     ];
@@ -3363,6 +3597,50 @@ table {
             const m = String(now.getMonth()+1).padStart(2,'0');
             const d = String(now.getDate()).padStart(2,'0');
             input.value = `${y}-${m}-${d}`;
+            input.dispatchEvent(new Event('change',{bubbles:true}));
+            input.dispatchEvent(new Event('input',{bubbles:true}));
+        });
+        wrapper.appendChild(btn);
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addIfMissing);
+    } else {
+        addIfMissing();
+    }
+})();
+</script>
+
+<script>
+/* V5：灌溉／拉拉猴記的「紀錄時間」旁提供「今天」：
+   一鍵把發生日期設為今天，並把紀錄時間帶成目前時間。 */
+(function ensureBowelTimeTodayButton(){
+    function addIfMissing(){
+        const input = document.getElementById('bowelTime');
+        if (!input || input.closest('.record-time-with-today')) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'record-time-with-today';
+        input.parentNode.insertBefore(wrapper, input);
+        wrapper.appendChild(input);
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'today-btn btn-reset';
+        btn.textContent = '今天';
+        btn.title = '日期設為今天，時間設為現在';
+        btn.addEventListener('click', function(){
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = String(now.getMonth()+1).padStart(2,'0');
+            const d = String(now.getDate()).padStart(2,'0');
+            const hh = String(now.getHours()).padStart(2,'0');
+            const mm = String(now.getMinutes()).padStart(2,'0');
+            const dateInput = document.getElementById('bowelDate');
+            if (dateInput) {
+                dateInput.value = `${y}-${m}-${d}`;
+                dateInput.dispatchEvent(new Event('change',{bubbles:true}));
+                dateInput.dispatchEvent(new Event('input',{bubbles:true}));
+            }
+            input.value = `${hh}:${mm}`;
             input.dispatchEvent(new Event('change',{bubbles:true}));
             input.dispatchEvent(new Event('input',{bubbles:true}));
         });
