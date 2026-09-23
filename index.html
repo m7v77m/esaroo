@@ -2329,62 +2329,35 @@ table {
 
 
 <style>
-/* 🧸 調皮老公特製：V8 爸爸指令之終極整容完美版
-   1) 徹底解決白色翻白眼、超出外框的問題
-   2) 自由調整「今天」字型大小與整組「上下間距」
-   3) 灌溉／拉拉猴的「紀錄時間」恢復與備註同寬
+/* V8：爸爸指定的最後微調
+   1) 手機日期欄位壓扁一點，和其他輸入框視覺一致
+   2) 保留日期欄位的「今天」快選
+   3) 灌溉／拉拉猴的「紀錄時間」不再附帶「今天」，恢復成與備註內容同寬的普通輸入框
 */
 @media screen and (max-width: 768px) {
-
-    /* 【改間距大招】：控制「文字加框框整組」的上下間距，讓排版有呼吸感 */
-    .date-filter-group,
-    .form-group.date-filter-group,
-    .form-group {
-        margin-bottom: 16px !important; /* 🌟 核心修正：16px 就是「整組跟下一組」的上下距離！想拉開就調大（如 20px） */
-    }
-
-    /* 調整包裹「日期＋今天」的外殼容器，確保絕對不超出大卡片 */
+    /* 起始日期、結束日期、購買日期、最終日期、發生日期等日期欄位 */
     .date-with-today {
-        display: flex !important;
-        align-items: center !important;
-        width: 100% !important;        /* 🌟 強制吃滿，絕不超出外框 */
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        height: 36px !important;        /* 稍微比 30px 厚一點點，更符合鄰居高度 */
-        gap: 6px !important;
+        min-height: 30px !important;
+        height: 30px !important;
+        gap: 5px !important;
     }
 
-    /* 日期輸入框瘦身與防白眼膚色 */
     .date-with-today input[type="date"] {
-        flex: 1 !important;             /* 讓輸入框自動伸展，不擠爆版面 */
-        width: 100% !important;
-        height: 36px !important;
-        padding: 4px 10px !important;
-        font-size: 14px !important;     /* 日期裡面的字體大小 */
-        border: 1px solid var(--border-color, #BC987E) !important; /* 溫暖咖啡色邊框 */
-        border-radius: 20px !important; /* 漂亮的大膠囊圓角 */
-        background-color: var(--bg-input, #fff) !important; /* 👈 防白眼：底色跟妳其他輸入框一致 */
-        color: var(--text-primary, #4A3728) !important;     /* 👈 防白眼：文字顏色改成深咖啡色 */
-        box-sizing: border-box !important;
+        height: 30px !important;
+        min-height: 30px !important;
+        padding: 4px 8px !important;
+        font-size: 12px !important;
+        line-height: 22px !important;
     }
 
-    /* 調整「今天」快選按鈕的字體與大小 */
     .date-with-today .today-btn {
-        height: 36px !important;
-        min-height: 36px !important;
-        padding: 0 12px !important;
-        
-        /* 🌟 核心修正：調整「今天」這兩個字的字型大小 */
-        font-size: 13px !important;     /* 👈 就是這行！想要「今天」字變大可以改成 14px，想變小就調成 12px */
-        
-        font-weight: 600 !important;
-        line-height: 36px !important;   /* 讓字垂直居中 */
-        border-radius: 20px !important; /* 按鈕也同步大膠囊圓角 */
-        background-color: #EDE0C8 !important; /* 溫暖的網頁代號底色 */
-        color: #4A3728 !important;      /* 深咖啡色字 */
-        border: 1px solid #BC987E !important;
-        white-space: nowrap !important; /* 確保「今天」兩個字絕對不被擠成上下兩行 */
-        cursor: pointer !important;
+        height: 30px !important;
+        min-height: 30px !important;
+        min-width: 48px !important;
+        max-width: 54px !important;
+        padding: 3px 7px !important;
+        font-size: 12px !important;
+        line-height: 22px !important;
     }
 
     /* 灌溉／拉拉猴：紀錄時間不再包「今天」，與備註內容一樣吃滿整列 */
@@ -2392,11 +2365,8 @@ table {
         width: 100% !important;
         max-width: none !important;
         min-width: 0 !important;
-        height: 38px !important;
-        border-radius: 20px !important;
-        border: 1px solid #BC987E !important;
-        padding: 4px 12px !important;
         box-sizing: border-box !important;
+        height: 34px !important;
     }
 
     #tab-other .form-group .input-box:has(#bowelTime) {
