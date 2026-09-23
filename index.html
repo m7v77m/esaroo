@@ -3595,9 +3595,9 @@ table {
             const avgPerDay = records.length / totalDaysTracked;
             const avgPerWeek = (avgPerDay * 7).toFixed(1);
             statsPanel.innerHTML = `
-                <div class="stat-item"><span class="stat-label">所選範圍內 近7天次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍內 七天次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
                 <div class="stat-item"><span class="stat-label">所選範圍內 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisMonthCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍內 長期週平均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍內 長期週均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
             `;
         }
 
