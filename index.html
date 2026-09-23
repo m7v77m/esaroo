@@ -1188,6 +1188,26 @@ table {
 }
 
 
+    /* V2：日期＋今天按鈕的共用樣式 */
+    .date-with-today {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+    .date-with-today input[type="date"] {
+        flex: 1 1 auto;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+    .today-btn {
+        flex: 0 0 auto;
+        padding: 6px 10px;
+        white-space: nowrap;
+    }
+
     /* ============================================================
        📱 綜合紀錄手機版：只調整版面與觸控，不改原有資料/功能邏輯
        ============================================================ */
@@ -1472,6 +1492,53 @@ table {
         /* 手機不顯示跟隨滑鼠的小熊，避免浪費資源 */
         #rilakkuma-follower {
             display: none !important;
+        }
+
+        /* V2：手機日期欄位一定收在卡片內，不讓原生 date 控制項把版面撐出去 */
+        .input-box,
+        .date-with-today {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .date-with-today {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) auto !important;
+            gap: 7px !important;
+            width: 100% !important;
+            align-items: center !important;
+        }
+
+        .date-with-today input[type="date"] {
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .today-btn {
+            width: auto !important;
+            min-width: 52px !important;
+            height: 38px !important;
+            padding: 6px 10px !important;
+            white-space: nowrap !important;
+            touch-action: manipulation;
+            flex: 0 0 auto !important;
+        }
+
+        /* 三個頂部選單只有三個，手機直接完整顯示，避免下拉選單被水平滾動容器裁掉 */
+        .nav-menu {
+            overflow: visible !important;
+            flex: 0 0 auto !important;
+        }
+        .nav-item,
+        .nav-item:hover {
+            overflow: visible !important;
+        }
+        .dropdown-content {
+            max-height: calc(100vh - 60px) !important;
+            overflow-y: auto !important;
         }
     }
 
@@ -2875,6 +2942,54 @@ table {
         });
     </script>
     <!-- 🐾 拉拉熊游標隨從特效結束 🐾 -->    
+
+<script>
+/* 📅 V2：所有日期欄位提供「今天」快選；不改原本資料邏輯 */
+(function setupTodayButtons(){
+    const dateIds = [
+        'elecFilterStartDate', 'elecFilterEndDate',
+        'elecDate',
+        'itemFilterStartDate', 'itemFilterEndDate',
+        'itemStartDate',
+        'bowelFilterStartDate', 'bowelFilterEndDate',
+        'bowelDate'
+    ];
+
+    function todayString(){
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
+    function putToday(id){
+        const input = document.getElementById(id);
+        if(!input) return;
+        input.value = todayString();
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+
+    dateIds.forEach(id => {
+        const input = document.getElementById(id);
+        if(!input || input.closest('.date-with-today')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'date-with-today';
+        input.parentNode.insertBefore(wrapper, input);
+        wrapper.appendChild(input);
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'today-btn btn-reset';
+        btn.textContent = '今天';
+        btn.title = '填入今天日期';
+        btn.addEventListener('click', () => putToday(id));
+        wrapper.appendChild(btn);
+    });
+})();
+</script>
 
 <script>
 /* 📱 手機導覽列：點一下開啟選單，再點一下關閉；點選外部自動收起 */
