@@ -2493,7 +2493,7 @@ table {
                                 <button class="btn-sm btn-save" style="background-color:var(--milk-tea-dark); height:34px; width:100%; padding:0 10px; border-radius: var(--radius-md); white-space:nowrap; font-size:13px;" onclick="batchUpdateCategory()">套用選項</button>
                             </div>
                             <div style="min-width:0;">
-                                <button class="btn-sm btn-edit" style="height:34px; width:100%; margin:0; padding:0 10px; border-radius: var(--radius-md); font-size:12px;" onclick="openCategoryModal()">管理分類列表</button>
+                                <button class="btn-sm btn-edit" style="height:34px; width:100%; margin:0; padding:0 10px; border-radius: var(--radius-md); font-size:12px;" onclick="openCategoryModal()">管理分類</button>
                             </div>
 
                             <!-- 第二列 -->
@@ -3595,9 +3595,9 @@ table {
             const avgPerDay = records.length / totalDaysTracked;
             const avgPerWeek = (avgPerDay * 7).toFixed(1);
             statsPanel.innerHTML = `
-                <div class="stat-item"><span class="stat-label">所選範圍內 近7天次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍內 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisMonthCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍內 長期週平均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 七天次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisMonthCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 長期週均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
             `;
         }
 
