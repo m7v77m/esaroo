@@ -317,7 +317,7 @@
             transition: border-color 0.2s, box-shadow 0.2s;
             background-color: var(--beige);
             box-sizing: border-box;
-            height: 36px;
+            height: 38px;
             color: var(--text-main);
         }
 
@@ -330,7 +330,7 @@
         /* ===== 按鈕 ===== */
         .btn-add,
         .btn-reset {
-            height: 36px;
+            height: 38px;
             line-height: 32px;
             padding: 0 18px;
             font-size: 13px;
@@ -1253,12 +1253,12 @@ table {
 
         .nav-item {
             flex: 0 0 auto;
-            height: 36px !important;
+            height: 38px !important;
             overflow: visible !important;
         }
 
         .nav-btn {
-            min-height: 36px;
+            min-height: 38px;
             padding: 6px 10px !important;
             font-size: 12px !important;
             white-space: nowrap;
@@ -2362,11 +2362,11 @@ table {
 
     /* 灌溉／拉拉猴：紀錄時間不再包「今天」，與備註內容一樣吃滿整列 */
     #tab-other .form-group #bowelTime {
-        width: 93% !important;
+        width: 93.3% !important;
         max-width: none !important;
         min-width: 0 !important;
         box-sizing: border-box !important;
-        height: 20px !important;
+        height: 38px !important;
     }
 
     #tab-other .form-group .input-box:has(#bowelTime) {
@@ -2386,7 +2386,7 @@ table {
    - 「今天」按鈕與日期框等高、同圓角，桌機版也不再被壓扁
    ============================================================ */
 #tab-elec, #tab-items, #tab-other {
-    --fld-h: 25px;
+    --fld-h: 38px;
     --fld-fs: 13px;
     --fld-label-gap: 4px;
 }
@@ -2414,7 +2414,7 @@ body :is(#tab-elec, #tab-items, #tab-other) input[type="date"]:not(.edit-input),
 body :is(#tab-elec, #tab-items, #tab-other) input[type="time"]:not(.edit-input) {
     height: var(--fld-h) !important;
     min-height: var(--fld-h) !important;
-    padding: 8px 10px !important;
+    padding: 6px 10px !important;
     font-size: var(--fld-fs) !important;
     line-height: normal !important;
     border-radius: var(--radius-md) !important;
@@ -2427,7 +2427,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today {
     display: flex !important;
     grid-template-columns: none !important;
     align-items: center !important;
-    gap: 8px !important;
+    gap: 6px !important;
     width: 100% !important;
     min-width: 0 !important;
     height: auto !important;
@@ -2444,7 +2444,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today input[type="date"] 
 body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
     flex: 0 0 auto !important;
     width: auto !important;
-    min-width: 44px !important;
+    min-width: 48px !important;
     max-width: none !important;
     height: var(--fld-h) !important;
     min-height: var(--fld-h) !important;
@@ -2461,7 +2461,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
 
 /* 4. 桌機／平板的用品新增表單：欄位很窄，今天按鈕縮小、日期框留足空間 */
 @media screen and (min-width: 769px) {
-    body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today { gap: 8px !important; }
+    body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today { gap: 4px !important; }
     body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today input[type="date"] { padding: 6px 6px !important; }
     body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today .today-btn {
         min-width: 38px !important;
@@ -2487,7 +2487,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
 
     <!-- ===== 導航欄 ===== -->
     <nav class="navbar">
-        <div class="nav-title" style="color: #336600; font-size: 17px;">
+        <div class="nav-title" style="color: #4F5518; font-size: 17px;">
     🎋 綜合紀錄 
     <!-- 核心修改：用 span 把顏文字包起來，並把字體調小（例如 16px） -->
     <span style="font-size: 16px;">૮• ﻌ ᴖა Ⳋ</span>
@@ -2642,32 +2642,32 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                         <div class="items-entry-grid" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px 8px; align-items:end; width:100% !important;">
                             <!-- 第一列 -->
                             <div style="min-width:0;">
-                                <select id="batchItemCategory" style="height:36px; padding:2px 8px; font-size:13px; width:100%; border-radius: var(--radius-md);"></select>
+                                <select id="batchItemCategory" style="height:38px; padding:2px 8px; font-size:13px; width:100%; border-radius: var(--radius-md);"></select>
                             </div>
                             <div style="min-width:0;">
-                                <button class="btn-sm btn-save" style="background-color:var(--milk-tea-dark); height:36px; width:100%; padding:0 10px; border-radius: var(--radius-md); white-space:nowrap; font-size:13px;" onclick="batchUpdateCategory()">套用選項</button>
+                                <button class="btn-sm btn-save" style="background-color:var(--milk-tea-dark); height:38px; width:100%; padding:0 10px; border-radius: var(--radius-md); white-space:nowrap; font-size:13px;" onclick="batchUpdateCategory()">套用選項</button>
                             </div>
                             <div style="min-width:0;">
-                                <button class="btn-sm btn-edit" style="height:36px; width:100%; margin:0; padding:0 10px; border-radius: var(--radius-md); font-size:12px;" onclick="openCategoryModal()">管理分類列表</button>
+                                <button class="btn-sm btn-edit" style="height:38px; width:100%; margin:0; padding:0 10px; border-radius: var(--radius-md); font-size:12px;" onclick="openCategoryModal()">管理分類列表</button>
                             </div>
 
                             <!-- 第二列 -->
                             <div style="min-width:0;">
                                 <div class="input-box" style="margin:0; width:100%;">
                                     <label>品項分類</label>
-                                    <select id="itemCategory" onchange="checkCustomCategory(this)" style="border-radius: var(--radius-md); width:100%; height:36px; font-size:13px;"></select>
+                                    <select id="itemCategory" onchange="checkCustomCategory(this)" style="border-radius: var(--radius-md); width:100%; height:38px; font-size:13px;"></select>
                                 </div>
                             </div>
                             <div style="min-width:0;">
                                 <div class="input-box" style="margin:0; width:100%;">
                                     <label>商品名稱</label>
-                                    <input type="text" id="itemName" placeholder="例如: 洗髮精" style="width:100%; height:36px; font-size:13px;">
+                                    <input type="text" id="itemName" placeholder="例如: 洗髮精" style="width:100%; height:38px; font-size:13px;">
                                 </div>
                             </div>
                             <div style="min-width:0;">
                                 <div class="input-box" style="margin:0; width:100%;">
                                     <label>購買日期</label>
-                                    <input type="date" id="itemStartDate" style="width:100%; height:36px; font-size:13px;">
+                                    <input type="date" id="itemStartDate" style="width:100%; height:38px; font-size:13px;">
                                 </div>
                             </div>
 
@@ -2675,13 +2675,13 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                             <div style="min-width:0;">
                                 <div class="input-box" style="margin:0; width:100%;">
                                     <label>最終日期</label>
-                                    <input type="date" id="itemEndDate" style="width:100%; height:36px; font-size:13px;">
+                                    <input type="date" id="itemEndDate" style="width:100%; height:38px; font-size:13px;">
                                 </div>
                             </div>
                             <div style="min-width:0;">
                                 <div class="input-box" style="margin:0; width:100%;">
                                     <label>商家平台</label>
-                                    <input type="text" id="itemStore" placeholder="例如: 全聯" style="width:100%; height:36px; font-size:13px;">
+                                    <input type="text" id="itemStore" placeholder="例如: 全聯" style="width:100%; height:38px; font-size:13px;">
                                 </div>
                             </div>
                             <div style="min-width:0; display:flex; align-items:flex-end;">
@@ -2756,7 +2756,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 </div>
                 <div class="input-box" style="flex-grow:1; max-width:600px;">
                     <label>備註內容</label>
-                    <input type="text" id="bowelNote" placeholder="例如: 腹痛腹瀉、長短顆粒、一短一長、...">
+                    <input type="text" id="bowelNote" placeholder="例如: 肚子痛">
                 </div>
                 <button class="btn-add" onclick="addBowel()">新增紀錄</button>
             </div>
@@ -3161,7 +3161,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `綜合資料全備份_${new Date().toISOString().split('T')[0]}.json`;
+            a.download = `綜合資料全域備份_${new Date().toISOString().split('T')[0]}.json`;
             a.style.display = 'none';
             document.body.appendChild(a);
             a.click();
@@ -3636,7 +3636,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             const avgDays = (totalDays / validCount).toFixed(1);
             panel.innerHTML = `
                 <div class="stat-item"><span class="stat-label">已用完項目 平均天數</span><span class="stat-value" style="color:var(--matcha-dark);">${avgDays} 天</span></div>
-                <div class="stat-item"><span class="stat-label">已用完項目 採計筆數</span><span class="stat-value" style="font-size:15px; font-weight:normal; margin-top:2px; color:var(--text-light);">共 ${validCount} 筆</span></div>
+                <div class="stat-item"><span class="stat-label">採計筆數</span><span class="stat-value" style="font-size:15px; font-weight:normal; margin-top:2px; color:var(--text-light);">共 ${validCount} 筆</span></div>
             `;
         }
 
@@ -3764,9 +3764,9 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             const avgPerDay = records.length / totalDaysTracked;
             const avgPerWeek = (avgPerDay * 7).toFixed(1);
             statsPanel.innerHTML = `
-                <div class="stat-item"><span class="stat-label">所選範圍 七天次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisMonthCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍 長期週均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍內 近7天次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍內 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisMonthCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍內 長期週平均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
             `;
         }
 
@@ -3828,31 +3828,6 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 opacity: 0.3;
             }
         }
-        /* 1. 鎖定起始與結束日期輸入框，強制把高度和內襯墊縮小，與右邊對齊 */
-#filterStartDate, #filterEndDate,itemStartDate, itemEndDate, {
-    height: 20px !important;       /* 如果右邊稍微高一點，可以改成 32px 或 36px 試試看 */
-    padding: 10px 10px !important;   /* 減少上下多餘的空間，只留左右舒適度 */
-    font-size: 0.85rem !important; /* 讓字體精緻不撐大框框 */
-    box-sizing: border-box !important;
-}
-
-/* 2. 鎖定這兩個日期框旁邊的「今天」按鈕，讓它跟左邊的輸入框齊頭並進 */
-.date-with-today .today-btn {
-    height: 20px !important;       /* 高度必須跟上面的日期框一模一樣 */
-    padding: 10px 10px !important;    /* 左右留一點小空間好按 */
-    font-size: 0.8rem !important;  /* 按鈕字體稍微精簡 */
-    line-height: 20px !important;  /* 讓「今天」兩個字垂直居中不歪斜 */
-    box-sizing: border-box !important;
-    margin-left: 4px !important;   /* 讓按鈕跟輸入框之間保持一個漂亮的小空隙 */
-}
-
-/* 3. 確保包裹它們的外殼容器不會自己長肉增高 */
-.date-with-today {
-    display: inline-flex !important;
-    align-items: center !important; /* 讓輸入框和今天按鈕在同一個水平線上對齊 */
-    height: 20px !important;
-}
-
     </style>
 
     <script>
