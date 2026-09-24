@@ -2355,7 +2355,7 @@ table {
         min-height: 25px !important;
         min-width: 48px !important;
         max-width: 54px !important;
-        padding: 3px 7px !important;
+        padding: 4px 7px !important;
         font-size: 12px !important;
         line-height: 25px !important;
     }
@@ -2400,7 +2400,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .input-box {
     gap: var(--fld-label-gap) !important;
 }
 body :is(#tab-elec, #tab-items, #tab-other) .input-box > label {
-    margin: 0 !important;
+    margin: 4 !important;
     line-height: 16px !important;
 }
 
@@ -2419,7 +2419,7 @@ body :is(#tab-elec, #tab-items, #tab-other) input[type="time"]:not(.edit-input) 
     line-height: normal !important;
     border-radius: var(--radius-md) !important;
     box-sizing: border-box !important;
-    margin: 0 !important;
+    margin: 4 !important;
 }
 
 /* 3. 日期＋今天按鈕：整組等高、垂直置中，不再鎖死高度造成黏在一起 */
@@ -2438,7 +2438,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today {
 body :is(#tab-elec, #tab-items, #tab-other) .date-with-today input[type="date"] {
     flex: 1 1 0% !important;
     width: auto !important;
-    min-width: 0 !important;
+    min-width: 4 !important;
     max-width: none !important;
 }
 body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
@@ -2448,8 +2448,8 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
     max-width: none !important;
     height: var(--fld-h) !important;
     min-height: var(--fld-h) !important;
-    margin: 0 !important;
-    padding: 0 10px !important;
+    margin: 4 !important;
+    padding: 4 10px !important;
     font-size: var(--fld-fs) !important;
     line-height: 1 !important;
     border-radius: var(--radius-md) !important;
@@ -2738,7 +2738,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                     </div>
                     <div class="input-box" style="flex-grow:1; min-width:150px;">
                         <label>關鍵字串</label>
-                        <input type="text" id="bowelFilterKeyword" placeholder="輸入備註..." oninput="renderBowel()">
+                        <input type="text" id="bowelFilterKeyword" placeholder="輸入備註內容" oninput="renderBowel()">
                     </div>
                     <button class="btn-reset" onclick="resetFilters('bowel')">重新設定</button>
                 </div>
