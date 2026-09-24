@@ -2362,7 +2362,7 @@ table {
 
     /* 灌溉／拉拉猴：紀錄時間不再包「今天」，與備註內容一樣吃滿整列 */
     #tab-other .form-group #bowelTime {
-        width: 91.5% !important;
+        width: 92% !important;
         max-width: none !important;
         min-width: 0 !important;
         box-sizing: border-box !important;
@@ -2386,7 +2386,7 @@ table {
    - 「今天」按鈕與日期框等高、同圓角，桌機版也不再被壓扁
    ============================================================ */
 #tab-elec, #tab-items, #tab-other {
-    --fld-h: 34px;
+    --fld-h: 25px;
     --fld-fs: 13px;
     --fld-label-gap: 4px;
 }
@@ -2414,7 +2414,7 @@ body :is(#tab-elec, #tab-items, #tab-other) input[type="date"]:not(.edit-input),
 body :is(#tab-elec, #tab-items, #tab-other) input[type="time"]:not(.edit-input) {
     height: var(--fld-h) !important;
     min-height: var(--fld-h) !important;
-    padding: 6px 10px !important;
+    padding: 8px 10px !important;
     font-size: var(--fld-fs) !important;
     line-height: normal !important;
     border-radius: var(--radius-md) !important;
@@ -2427,7 +2427,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today {
     display: flex !important;
     grid-template-columns: none !important;
     align-items: center !important;
-    gap: 6px !important;
+    gap: 8px !important;
     width: 100% !important;
     min-width: 0 !important;
     height: auto !important;
@@ -2444,7 +2444,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today input[type="date"] 
 body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
     flex: 0 0 auto !important;
     width: auto !important;
-    min-width: 48px !important;
+    min-width: 44px !important;
     max-width: none !important;
     height: var(--fld-h) !important;
     min-height: var(--fld-h) !important;
@@ -2461,7 +2461,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
 
 /* 4. 桌機／平板的用品新增表單：欄位很窄，今天按鈕縮小、日期框留足空間 */
 @media screen and (min-width: 769px) {
-    body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today { gap: 4px !important; }
+    body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today { gap: 8px !important; }
     body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today input[type="date"] { padding: 6px 6px !important; }
     body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today .today-btn {
         min-width: 38px !important;
