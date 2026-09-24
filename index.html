@@ -2337,8 +2337,8 @@ table {
 @media screen and (max-width: 768px) {
     /* 起始日期、結束日期、購買日期、最終日期、發生日期等日期欄位 */
     .date-with-today {
-        min-height: 30px !important;
-        height: 30px !important;
+        min-height: 20px !important;
+        height: 20px !important;
         gap: 5px !important;
     }
 
@@ -2386,13 +2386,13 @@ table {
    - 「今天」按鈕與日期框等高、同圓角，桌機版也不再被壓扁
    ============================================================ */
 #tab-elec, #tab-items, #tab-other {
-    --fld-h: 38px;
+    --fld-h: 20px;
     --fld-fs: 13px;
     --fld-label-gap: 4px;
 }
 @media screen and (max-width: 768px) {
     /* 手機用品頁其他輸入框本來就是 38px / 14px，日期跟著一致 */
-    #tab-items { --fld-h: 38px; --fld-fs: 14px; }
+    #tab-items { --fld-h: 20px; --fld-fs: 14px; }
 }
 
 /* 1. 標籤與輸入框的間距統一 */
@@ -2575,7 +2575,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 </div>
                 <div class="input-box" style="flex-grow:1; max-width:250px;">
                     <label>備註內容</label>
-                    <input type="text" id="elecNote" placeholder="例如: 本期結算">
+                    <input type="text" id="elecNote" placeholder="例如: 5元*尚餘4天=20元，20元+前一天度數18845=18865度。">
                 </div>
                 <button class="btn-add" onclick="addElectricity()">新增紀錄</button>
             </div>
