@@ -2377,111 +2377,6 @@ table {
     }
 }
 </style>
-<style id="unified-date-fields">
-/* ============================================================
-   ✅ 日期／時間欄位統一規格（放在所有樣式最後面，蓋過前面各版本的覆寫）
-   - 起始日期、結束日期、紀錄日期、購買日期、最終日期、發生日期、紀錄時間
-     ＝ 高度、字級、圓角都和同一頁面的其他輸入框一致
-   - 標籤文字與輸入框的距離一律 4px
-   - 「今天」按鈕與日期框等高、同圓角，桌機版也不再被壓扁
-   ============================================================ */
-#tab-elec, #tab-items, #tab-other {
-    --fld-h: 34px;
-    --fld-fs: 13px;
-    --fld-label-gap: 4px;
-}
-@media screen and (max-width: 768px) {
-    /* 手機用品頁其他輸入框本來就是 38px / 14px，日期跟著一致 */
-    #tab-items { --fld-h: 38px; --fld-fs: 14px; }
-}
-
-/* 1. 標籤與輸入框的間距統一 */
-body :is(#tab-elec, #tab-items, #tab-other) .input-box {
-    gap: var(--fld-label-gap) !important;
-}
-body :is(#tab-elec, #tab-items, #tab-other) .input-box > label {
-    margin: 0 !important;
-    line-height: 16px !important;
-}
-
-/* 用品新增表單的標籤間距（前面版本鎖成 2px，這裡統一成 4px） */
-body #tab-items .items-entry-grid .input-box {
-    gap: var(--fld-label-gap) !important;
-}
-
-/* 2. 日期／時間輸入框：高度、字級、圓角與其他框框一致 */
-body :is(#tab-elec, #tab-items, #tab-other) input[type="date"]:not(.edit-input),
-body :is(#tab-elec, #tab-items, #tab-other) input[type="time"]:not(.edit-input) {
-    height: var(--fld-h) !important;
-    min-height: var(--fld-h) !important;
-    padding: 6px 10px !important;
-    font-size: var(--fld-fs) !important;
-    line-height: normal !important;
-    border-radius: var(--radius-md) !important;
-    box-sizing: border-box !important;
-    margin: 0 !important;
-}
-
-/* 3. 日期＋今天按鈕：整組等高、垂直置中，不再鎖死高度造成黏在一起 */
-body :is(#tab-elec, #tab-items, #tab-other) .date-with-today {
-    display: flex !important;
-    grid-template-columns: none !important;
-    align-items: center !important;
-    gap: 6px !important;
-    width: 100% !important;
-    min-width: 0 !important;
-    height: auto !important;
-    min-height: 0 !important;
-    margin: 0 !important;
-    box-sizing: border-box !important;
-}
-body :is(#tab-elec, #tab-items, #tab-other) .date-with-today input[type="date"] {
-    flex: 1 1 0% !important;
-    width: auto !important;
-    min-width: 0 !important;
-    max-width: none !important;
-}
-body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
-    flex: 0 0 auto !important;
-    width: auto !important;
-    min-width: 48px !important;
-    max-width: none !important;
-    height: var(--fld-h) !important;
-    min-height: var(--fld-h) !important;
-    margin: 0 !important;
-    padding: 0 10px !important;
-    font-size: var(--fld-fs) !important;
-    line-height: 1 !important;
-    border-radius: var(--radius-md) !important;
-    box-sizing: border-box !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-/* 4. 桌機／平板的用品新增表單：欄位很窄，今天按鈕縮小、日期框留足空間 */
-@media screen and (min-width: 769px) {
-    body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today { gap: 4px !important; }
-    body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today input[type="date"] { padding: 6px 6px !important; }
-    body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today .today-btn {
-        min-width: 38px !important;
-        padding: 0 6px !important;
-    }
-}
-/* 平板寬度（769～1279px）：用品新增表單右側面板較窄，改成兩欄排列，日期框才放得下 */
-@media screen and (min-width: 769px) and (max-width: 1279px) {
-    body #tab-items .items-entry-grid {
-        grid-template-columns: 1fr 1fr !important;
-    }
-    body #tab-items .items-entry-grid > :nth-child(3) {
-        grid-column: 1 / -1 !important;
-    }
-}
-/* 小平板（769～899px）：面板更窄，暫時收起「今天」按鈕讓日期完整顯示（日期選擇器仍可用） */
-@media screen and (min-width: 769px) and (max-width: 899px) {
-    body #tab-items .items-entry-grid .date-with-today .today-btn { display: none !important; }
-}
-</style>
 </head>
 <body>
 
@@ -2752,7 +2647,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 </div>
                 <div class="input-box">
                     <label>紀錄時間</label>
-                    <input type="time" id="bowelTime" step="60">
+                    <input type="time" id="bowelTime">
                 </div>
                 <div class="input-box" style="flex-grow:1; max-width:600px;">
                     <label>備註內容</label>
@@ -3131,18 +3026,6 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             renderAll();
         }
 
-        // 時間一律轉成 HH:MM（去掉秒數，例如 08:30:00 -> 08:30）
-        function normTime(t) {
-            if (typeof t !== 'string') return t;
-            const m = t.trim().match(/^(\d{1,2}):(\d{2})(?::\d{2}(?:\.\d+)?)?$/);
-            return m ? m[1].padStart(2, '0') + ':' + m[2] : t;
-        }
-        function normalizeAllTimes() {
-            ['bowel', 'electricity'].forEach(k => {
-                if (Array.isArray(appData[k])) appData[k].forEach(r => { if (r && r.time) r.time = normTime(r.time); });
-            });
-        }
-
         function loadData() {
             const stored = localStorage.getItem('MonthlyDataMgmt');
             if (stored) {
@@ -3150,7 +3033,6 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                     const parsed = JSON.parse(stored);
                     if (!parsed.categories) parsed.categories = ["衛浴用品", "廚房用品", "清潔用品", "3C耗材", "其他"];
                     appData = parsed;
-                    normalizeAllTimes();
                 } catch (e) { console.error("解析資料失敗"); }
             }
         }
@@ -3180,7 +3062,6 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                     const importedData = JSON.parse(e.target.result);
                     if (importedData.electricity && importedData.items && importedData.bowel) {
                         appData = importedData;
-                        normalizeAllTimes();
                         if (!appData.categories) appData.categories = ["衛浴用品", "廚房用品", "清潔用品", "3C耗材", "其他"];
                         saveData();
                         updateCategoryDropdown('itemCategory');
@@ -3656,7 +3537,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
         // ================================================================
         function addBowel() {
             const date = document.getElementById('bowelDate').value;
-            const time = normTime(document.getElementById('bowelTime').value);
+            const time = document.getElementById('bowelTime').value;
             const note = document.getElementById('bowelNote').value;
             if (!date || !time) return;
             appData.bowel.push({ id: Date.now(), date, time, note });
@@ -3666,7 +3547,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
 
         function saveEditBowel(id) {
             const date = document.getElementById('editBowelDate').value;
-            const time = normTime(document.getElementById('editBowelTime').value);
+            const time = document.getElementById('editBowelTime').value;
             const note = document.getElementById('editBowelNote').value;
             if (!date || !time) return alert('請填寫完整日期時間');
             let index = appData.bowel.findIndex(r => r.id === id);
@@ -3700,7 +3581,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 if (startDate && rec.date < startDate) return false;
                 if (endDate && rec.date > endDate) return false;
                 if (keyword) {
-                    const matchString = `${rec.date} ${normTime(rec.time)} ${rec.note || ''}`.toLowerCase();
+                    const matchString = `${rec.date} ${rec.time} ${rec.note || ''}`.toLowerCase();
                     if (!matchString.includes(keyword)) return false;
                 }
                 return true;
@@ -3715,7 +3596,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                     tbody.innerHTML += `
                         <tr style="background-color: var(--milk-tea-pale);">
                             <td><input type="date" id="editBowelDate" value="${rec.date}" class="edit-input"></td>
-                            <td><input type="time" id="editBowelTime" value="${normTime(rec.time)}" step="60" class="edit-input"></td>
+                            <td><input type="time" id="editBowelTime" value="${rec.time}" class="edit-input"></td>
                             <td><input type="text" id="editBowelNote" value="${rec.note || ''}" class="edit-input"></td>
                             <td class="action-cell">
                                 <button class="btn-sm btn-save" onclick="saveEditBowel(${rec.id})">儲存</button>
@@ -3728,7 +3609,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                         <tr>
                             <!-- 顯示日期與星期 -->
                             <td>${rec.date} ${weekday}</td>
-                            <td>${normTime(rec.time)}</td>
+                            <td>${rec.time}</td>
                             <td>${rec.note || '-'}</td>
                             <td class="action-cell">
                                 <button class="btn-sm btn-edit" onclick="startEdit('bowel', ${rec.id})">編輯</button>
