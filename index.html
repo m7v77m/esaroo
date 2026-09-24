@@ -2751,12 +2751,12 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                     <input type="date" id="bowelDate">
                 </div>
                 <div class="input-box">
-                    <label>紀錄時間</label>
+                    <label>紀錄時間</label><div class="input-box" style="flex-grow:1; max-width:400px;">
                     <input type="time" id="bowelTime" step="60">
                 </div>
                 <div class="input-box" style="flex-grow:1; max-width:600px;">
                     <label>備註內容</label>
-                    <input type="text" id="bowelNote" placeholder="例如: 肚子痛">
+                    <input type="text" id="bowelNote" placeholder="例如: 腹痛腹瀉、長短顆粒、一短一長、...">
                 </div>
                 <button class="btn-add" onclick="addBowel()">新增紀錄</button>
             </div>
@@ -3161,7 +3161,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `綜合資料全域備份_${new Date().toISOString().split('T')[0]}.json`;
+            a.download = `綜合資料全備份_${new Date().toISOString().split('T')[0]}.json`;
             a.style.display = 'none';
             document.body.appendChild(a);
             a.click();
@@ -3764,9 +3764,9 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             const avgPerDay = records.length / totalDaysTracked;
             const avgPerWeek = (avgPerDay * 7).toFixed(1);
             statsPanel.innerHTML = `
-                <div class="stat-item"><span class="stat-label">所選範圍內 七天次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍內 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisMonthCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍內 長期週均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 七天次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisMonthCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 長期週均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
             `;
         }
 
