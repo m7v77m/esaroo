@@ -3764,8 +3764,8 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             const avgPerDay = records.length / totalDaysTracked;
             const avgPerWeek = (avgPerDay * 7).toFixed(1);
             statsPanel.innerHTML = `
-                <div class="stat-item"><span class="stat-label">所選範圍 七天次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisMonthCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 一週次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">七天 ${thisWeekCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">累計 ${thisMonthCount} 次</span></div>
                 <div class="stat-item"><span class="stat-label">所選範圍 長期週均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
             `;
         }
