@@ -2708,8 +2708,8 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                         <th style="width:30px; text-align:center;"><input type="checkbox" id="selectAllItems" onchange="toggleSelectAllItems(this)"></th>
                         <th class="sortable-header nowrap-cell" style="width:12%;" onclick="toggleItemSort('category')">品項分類<span id="sortIndicator_category" class="sort-icon"></span></th>
                         <th style="width:auto;">商品名稱</th>
-                        <th class="sortable-header nowrap-cell" style="width:12%;" onclick="toggleItemSort('start')">購買日期<span id="sortIndicator_start" class="sort-icon"></span></th>
-                        <th class="sortable-header nowrap-cell" style="width:12%;" onclick="toggleItemSort('end')">最終日期<span id="sortIndicator_end" class="sort-icon"></span></th>
+                        <th class="sortable-header nowrap-cell" onclick="toggleItemSort('start')">購買日期<span id="sortIndicator_start" class="sort-icon"></span></th>
+                        <th class="sortable-header nowrap-cell" onclick="toggleItemSort('end')">最終日期<span id="sortIndicator_end" class="sort-icon"></span></th>
                         <th class="nowrap-cell" style="width:10%;">使用天數</th>
                         <th style="width:15%;">購買商家</th>
                         <th class="nowrap-cell" style="width:110px;">操作編輯</th>
@@ -3405,7 +3405,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             panel.innerHTML = `
                 <div class="stat-item">
                     <span class="stat-label">當前統計範圍</span>
-                    <span class="stat-value" style="font-size:15px; margin-top:2px; color:var(--text-light);">${scopeText}</span>
+                    <span class="stat-value" style="font-size:14px; margin-top:2px; color:var(--text-light);">${scopeText}</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">區間總用電量</span>
