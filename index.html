@@ -2462,7 +2462,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
 /* 4. 桌機／平板的用品新增表單：欄位很窄，今天按鈕縮小、日期框留足空間 */
 @media screen and (min-width: 769px) {
     body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today { gap: 4px !important; }
-    body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today input[type="date"] { padding: 6px 6px !important; }
+    body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today input[type="date"] { padding: 0px 6px !important; }
     body :is(#tab-elec, #tab-items, #tab-other) .items-entry-grid .date-with-today .today-btn {
         min-width: 38px !important;
         padding: 0 6px !important;
@@ -2487,17 +2487,17 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
 
     <!-- ===== 導航欄 ===== -->
     <nav class="navbar">
-        <div class="nav-title" style="color: #4F5518; font-size: 17px;">
+        <div class="nav-title" style="color: #666218; font-size: 17px;">
     🎋 綜合紀錄 
     <!-- 核心修改：用 span 把顏文字包起來，並把字體調小（例如 16px） -->
-    <span style="font-size: 16px;">૮• ﻌ ᴖა Ⳋ</span>
+    <span style="font-size: 16px;">૮• ﻌ ᴖა Ⳋ</span>&nbsp;&nbsp;
 </div>
         <div class="nav-menu">
             <div class="nav-item">
                 <button class="nav-btn">檔案 ▾</button>
                 <div class="dropdown-content">
-                    <a href="javascript:void(0)" onclick="exportJSON()">匯出 JSON</a>
-                    <a href="javascript:void(0)" onclick="document.getElementById('importFile').click()">匯入 JSON</a>
+                    <a href="javascript:void(0)" onclick="exportJSON()">匯出JSON</a>
+                    <a href="javascript:void(0)" onclick="document.getElementById('importFile').click()">匯入JSON</a>
                     <a href="javascript:void(0)" onclick="clearAllData()" class="text-danger">清 空 檔 案</a>
                 </div>
             </div>
