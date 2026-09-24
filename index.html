@@ -2542,17 +2542,17 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                         <label>關鍵字串</label>
                         <input type="text" id="elecFilterKeyword" placeholder="輸入備註..." oninput="renderElectricity()">
                     </div>
-                    <button class="btn-reset" onclick="resetFilters('electricity')">重設</button>
+                    <button class="btn-reset" onclick="resetFilters('electricity')">重新設定</button>
                 </div>
                 <div class="stats-panel" id="elecStats" style="flex:1; min-width:300px;padding:12px 40px;display:flex;align-items:center;"></div>
             </div>
 
            <div class="batch-panel" id="elecSelectionPanel" style="display:none; margin-bottom:12px; padding:8px 15px; display: flex; align-items: center; flex-wrap: wrap;">
     <span class="batch-title">☑️ 已選取統計：</span>
-    <span style="font-size:13px; color:var(--text-light);">已選取 <strong id="selElecCount">0</strong> 筆</span>
-    <span style="font-size:13px; color:var(--text-light);">｜總用電量: <strong id="selElecKwh">0.00</strong> 度</span>
-    <span style="font-size:13px; color:var(--danger); font-weight:600;">｜總電費: <strong id="selElecCost">0.00</strong> 元</span>
-    <span style="font-size:13px; color:var(--text-light);">｜平均用電量: <strong id="selElecAvgKwh">0.00</strong> 度</span>
+    <span style="font-size:13px; color:var(--text-light);">已選項目 <strong id="selElecCount">0</strong> 筆</span>
+    <span style="font-size:13px; color:var(--text-light);">｜用電總量: <strong id="selElecKwh">0.00</strong> 度</span>
+    <span style="font-size:13px; color:var(--danger); font-weight:600;">｜電費總額: <strong id="selElecCost">0.00</strong> 元</span>
+    <span style="font-size:13px; color:var(--text-light);">｜平均用電: <strong id="selElecAvgKwh">0.00</strong> 度</span>
     <span style="font-size:13px; color:var(--danger); font-weight:600;">｜平均電費: <strong id="selElecAvgCost">0.00</strong> 元</span>
     
     <!-- 終極縮小按鈕（已經把舊的刪除囉！） -->
@@ -2629,7 +2629,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                             <label>關鍵字串</label>
                             <input type="text" id="itemFilterKeyword" placeholder="輸入名稱、商家或備註..." oninput="renderItems()">
                         </div>
-                        <button class="btn-reset" onclick="resetFilters('items')">重設</button>
+                        <button class="btn-reset" onclick="resetFilters('items')">重新設定</button>
                     </div>
                 </div> 
                 <!-- 2+3. 批次面板+統計 - 右邊紅框3欄模板 -->
@@ -2661,7 +2661,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                             <div style="min-width:0;">
                                 <div class="input-box" style="margin:0; width:100%;">
                                     <label>商品名稱</label>
-                                    <input type="text" id="itemName" placeholder="例如: 洗髮精" style="width:100%; height:38px; font-size:13px;">
+                                    <input type="text" id="itemName" placeholder="例如: 九五汽油、防噪耳塞、除塵黏紙、..." style="width:100%; height:38px; font-size:13px;">
                                 </div>
                             </div>
                             <div style="min-width:0;">
@@ -2740,7 +2740,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                         <label>關鍵字串</label>
                         <input type="text" id="bowelFilterKeyword" placeholder="輸入備註..." oninput="renderBowel()">
                     </div>
-                    <button class="btn-reset" onclick="resetFilters('bowel')">重設</button>
+                    <button class="btn-reset" onclick="resetFilters('bowel')">重新設定</button>
                 </div>
                 <div class="stats-panel" id="bowelStats" style="flex:1; min-width:300px;padding-left:70px;"></div>
             </div>
@@ -2859,9 +2859,9 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             select.innerHTML = '';
 
             const uncatOpt = document.createElement('option');
-            uncatOpt.value = '未分類';
-            uncatOpt.textContent = '未分類';
-            if ('未分類' === selectedValue) uncatOpt.selected = true;
+            uncatOpt.value = '尚未分類';
+            uncatOpt.textContent = '尚未分類';
+            if ('尚未分類' === selectedValue) uncatOpt.selected = true;
             select.appendChild(uncatOpt);
 
             appData.categories.forEach(cat => {
@@ -2910,9 +2910,9 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             });
 
             const uncatTag = document.createElement('span');
-            uncatTag.className = `filter-tag ${currentVal === '未分類' ? 'active' : ''}`;
-            uncatTag.textContent = '未分類';
-            uncatTag.onclick = () => setTagFilter('未分類');
+            uncatTag.className = `filter-tag ${currentVal === '尚未分類' ? 'active' : ''}`;
+            uncatTag.textContent = '尚未分類';
+            uncatTag.onclick = () => setTagFilter('尚未分類');
             container.appendChild(uncatTag);
         }
 
@@ -2939,7 +2939,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             const input = document.getElementById('newCategoryInput');
             const val = input.value.trim();
             if (!val) return alert('請輸入分類名稱！');
-            if (val === '未分類') return alert('「未分類」為系統保留字，請使用其他名稱。');
+            if (val === '尚未分類') return alert('「尚未分類」為系統保留字，請使用其他名稱。');
             if (appData.categories.includes(val)) {
                 alert('此分類已存在。');
                 cancelCustomCategory();
@@ -3049,7 +3049,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
         function saveCategoryName(index, oldName) {
             const newName = document.getElementById(`catEditInput_${index}`).value.trim();
             if (!newName) return alert('分類名稱不可為空白！');
-            if (newName === '未分類') return alert('「未分類」為系統預設名稱，請使用其他名稱。');
+            if (newName === '尚未分類') return alert('「尚未分類」為系統預設名稱，請使用其他名稱。');
             if (newName === oldName) return;
             if (appData.categories.includes(newName)) return alert('此分類名稱已存在！');
 
@@ -3066,10 +3066,10 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
         }
 
         function removeCategory(index, oldName) {
-            if (!confirm(`確定要刪除分類「${oldName}」嗎？\n\n原屬於此分類的項目將會被自動變更為「未分類」。`)) return;
+            if (!confirm(`確定要刪除分類「${oldName}」嗎？\n\n原屬於此分類的項目將會被自動變更為「尚未分類」。`)) return;
             appData.categories.splice(index, 1);
             appData.items.forEach(item => {
-                if (item.category === oldName) item.category = '未分類';
+                if (item.category === oldName) item.category = '尚未分類';
             });
             saveData();
             renderCategoryList();
@@ -3510,12 +3510,12 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
 
             let sortedItems = [...appData.items].sort((a, b) => {
                 if (itemSortState.column === 'category') {
-                    let catA = a.category || '未分類';
-                    let catB = b.category || '未分類';
+                    let catA = a.category || '尚未分類';
+                    let catB = b.category || '尚未分類';
                     let idxA = appData.categories.indexOf(catA);
                     let idxB = appData.categories.indexOf(catB);
-                    if (idxA === -1) idxA = (catA === '未分類') ? -1 : 999;
-                    if (idxB === -1) idxB = (catB === '未分類') ? -1 : 999;
+                    if (idxA === -1) idxA = (catA === '尚未分類') ? -1 : 999;
+                    if (idxB === -1) idxB = (catB === '尚未分類') ? -1 : 999;
                     let catDiff = idxA - idxB;
                     if (catDiff !== 0) return itemSortState.direction === 'asc' ? catDiff : -catDiff;
                     else return new Date(b.start) - new Date(a.start);
@@ -3534,7 +3534,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
 
             let filteredItems = sortedItems.filter(item => {
                 if (filterCategory) {
-                    const itemCat = item.category || '未分類';
+                    const itemCat = item.category || '尚未分類';
                     if (itemCat !== filterCategory) return false;
                 }
                 if (startDate && item.start < startDate) return false;
@@ -3556,7 +3556,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                     rowStyle = "border-top: 2px dashed var(--milk-tea-light);";
                 }
                 prevCategory = item.category;
-                const displayCategory = item.category || '未分類';
+                const displayCategory = item.category || '尚未分類';
 
                 if (isEditing) {
                     tbody.innerHTML += `
@@ -3564,7 +3564,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                             <td style="text-align:center;">-</td>
                             <td>
                                 <select id="editItemCategory_${item.id}" class="edit-input">
-                                    <option value="未分類" ${displayCategory === '未分類' ? 'selected' : ''}>未分類</option>
+                                    <option value="尚未分類" ${displayCategory === '尚未分類' ? 'selected' : ''}>尚未分類</option>
                                     ${appData.categories.map(c => `<option value="${c}" ${displayCategory===c?'selected':''}>${c}</option>`).join('')}
                                 </select>
                             </td>
@@ -3636,7 +3636,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             const avgDays = (totalDays / validCount).toFixed(1);
             panel.innerHTML = `
                 <div class="stat-item"><span class="stat-label">已用完項目 平均天數</span><span class="stat-value" style="color:var(--matcha-dark);">${avgDays} 天</span></div>
-                <div class="stat-item"><span class="stat-label">採計筆數</span><span class="stat-value" style="font-size:15px; font-weight:normal; margin-top:2px; color:var(--text-light);">共 ${validCount} 筆</span></div>
+                <div class="stat-item"><span class="stat-label">已用完項目 採計筆數</span><span class="stat-value" style="font-size:15px; font-weight:normal; margin-top:2px; color:var(--text-light);">共 ${validCount} 筆</span></div>
             `;
         }
 
@@ -3764,14 +3764,14 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             const avgPerDay = records.length / totalDaysTracked;
             const avgPerWeek = (avgPerDay * 7).toFixed(1);
             statsPanel.innerHTML = `
-                <div class="stat-item"><span class="stat-label">所選範圍內 近7天次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍內 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisMonthCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍內 長期週平均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 七天次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisMonthCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 長期週均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
             `;
         }
 
         // ================================================================
-        //  重設篩選
+        //  重新設定篩選
         // ================================================================
         function resetFilters(type) {
             if (!type || type === 'electricity') {
