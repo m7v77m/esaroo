@@ -317,7 +317,7 @@
             transition: border-color 0.2s, box-shadow 0.2s;
             background-color: var(--beige);
             box-sizing: border-box;
-            height: 34px;
+            height: 25px;
             color: var(--text-main);
         }
 
@@ -330,7 +330,7 @@
         /* ===== 按鈕 ===== */
         .btn-add,
         .btn-reset {
-            height: 34px;
+            height: 25px;
             line-height: 32px;
             padding: 0 18px;
             font-size: 13px;
@@ -1253,12 +1253,12 @@ table {
 
         .nav-item {
             flex: 0 0 auto;
-            height: 34px !important;
+            height: 25px !important;
             overflow: visible !important;
         }
 
         .nav-btn {
-            min-height: 34px;
+            min-height: 25px;
             padding: 6px 10px !important;
             font-size: 12px !important;
             white-space: nowrap;
@@ -2362,7 +2362,7 @@ table {
 
     /* 灌溉／拉拉猴：紀錄時間不再包「今天」，與備註內容一樣吃滿整列 */
     #tab-other .form-group #bowelTime {
-        width: 92.5% !important;
+        width: 93% !important;
         max-width: none !important;
         min-width: 0 !important;
         box-sizing: border-box !important;
@@ -2642,32 +2642,32 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                         <div class="items-entry-grid" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px 8px; align-items:end; width:100% !important;">
                             <!-- 第一列 -->
                             <div style="min-width:0;">
-                                <select id="batchItemCategory" style="height:34px; padding:2px 8px; font-size:13px; width:100%; border-radius: var(--radius-md);"></select>
+                                <select id="batchItemCategory" style="height:25px; padding:2px 8px; font-size:13px; width:100%; border-radius: var(--radius-md);"></select>
                             </div>
                             <div style="min-width:0;">
-                                <button class="btn-sm btn-save" style="background-color:var(--milk-tea-dark); height:34px; width:100%; padding:0 10px; border-radius: var(--radius-md); white-space:nowrap; font-size:13px;" onclick="batchUpdateCategory()">套用選項</button>
+                                <button class="btn-sm btn-save" style="background-color:var(--milk-tea-dark); height:25px; width:100%; padding:0 10px; border-radius: var(--radius-md); white-space:nowrap; font-size:13px;" onclick="batchUpdateCategory()">套用選項</button>
                             </div>
                             <div style="min-width:0;">
-                                <button class="btn-sm btn-edit" style="height:34px; width:100%; margin:0; padding:0 10px; border-radius: var(--radius-md); font-size:12px;" onclick="openCategoryModal()">管理分類列表</button>
+                                <button class="btn-sm btn-edit" style="height:25px; width:100%; margin:0; padding:0 10px; border-radius: var(--radius-md); font-size:12px;" onclick="openCategoryModal()">管理分類列表</button>
                             </div>
 
                             <!-- 第二列 -->
                             <div style="min-width:0;">
                                 <div class="input-box" style="margin:0; width:100%;">
                                     <label>品項分類</label>
-                                    <select id="itemCategory" onchange="checkCustomCategory(this)" style="border-radius: var(--radius-md); width:100%; height:34px; font-size:13px;"></select>
+                                    <select id="itemCategory" onchange="checkCustomCategory(this)" style="border-radius: var(--radius-md); width:100%; height:25px; font-size:13px;"></select>
                                 </div>
                             </div>
                             <div style="min-width:0;">
                                 <div class="input-box" style="margin:0; width:100%;">
                                     <label>商品名稱</label>
-                                    <input type="text" id="itemName" placeholder="例如: 洗髮精" style="width:100%; height:34px; font-size:13px;">
+                                    <input type="text" id="itemName" placeholder="例如: 洗髮精" style="width:100%; height:25px; font-size:13px;">
                                 </div>
                             </div>
                             <div style="min-width:0;">
                                 <div class="input-box" style="margin:0; width:100%;">
                                     <label>購買日期</label>
-                                    <input type="date" id="itemStartDate" style="width:100%; height:34px; font-size:13px;">
+                                    <input type="date" id="itemStartDate" style="width:100%; height:25px; font-size:13px;">
                                 </div>
                             </div>
 
@@ -2675,13 +2675,13 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                             <div style="min-width:0;">
                                 <div class="input-box" style="margin:0; width:100%;">
                                     <label>最終日期</label>
-                                    <input type="date" id="itemEndDate" style="width:100%; height:34px; font-size:13px;">
+                                    <input type="date" id="itemEndDate" style="width:100%; height:25px; font-size:13px;">
                                 </div>
                             </div>
                             <div style="min-width:0;">
                                 <div class="input-box" style="margin:0; width:100%;">
                                     <label>商家平台</label>
-                                    <input type="text" id="itemStore" placeholder="例如: 全聯" style="width:100%; height:34px; font-size:13px;">
+                                    <input type="text" id="itemStore" placeholder="例如: 全聯" style="width:100%; height:25px; font-size:13px;">
                                 </div>
                             </div>
                             <div style="min-width:0; display:flex; align-items:flex-end;">
@@ -3829,9 +3829,8 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             }
         }
         /* 1. 鎖定起始與結束日期輸入框，強制把高度和內襯墊縮小，與右邊對齊 */
-#filterStartDate, 
-#filterEndDate {
-    height: 20px !important;       /* 如果右邊稍微高一點，可以改成 32px 或 34px 試試看 */
+#filterStartDate, #filterEndDate,itemStartDate, itemEndDate, {
+    height: 20px !important;       /* 如果右邊稍微高一點，可以改成 32px 或 25px 試試看 */
     padding: 10px 10px !important;   /* 減少上下多餘的空間，只留左右舒適度 */
     font-size: 0.85rem !important; /* 讓字體精緻不撐大框框 */
     box-sizing: border-box !important;
