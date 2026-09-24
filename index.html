@@ -3630,13 +3630,13 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             });
             if (validCount === 0) {
                 panel.innerHTML =
-                    `<div class="stat-item"><span class="stat-label">分類平均壽命</span><span class="stat-value" style="font-size:13px; color:var(--text-muted); font-weight:normal; margin-top:2px;">無已用完紀錄<br>(需填寫最後使用日期)</span></div>`;
+                    `<div class="stat-item"><span class="stat-label">分類平均壽命</span><span class="stat-value" style="font-size:13px; color:var(--text-muted); font-weight:normal; margin-top:2px;">無使用紀錄<br>(需填寫最後使用日期)</span></div>`;
                 return;
             }
             const avgDays = (totalDays / validCount).toFixed(1);
             panel.innerHTML = `
-                <div class="stat-item"><span class="stat-label">已用完項目 平均天數</span><span class="stat-value" style="color:var(--matcha-dark);">${avgDays} 天</span></div>
-                <div class="stat-item"><span class="stat-label">已用完項目 採計筆數</span><span class="stat-value" style="font-size:15px; font-weight:normal; margin-top:2px; color:var(--text-light);">共 ${validCount} 筆</span></div>
+                <div class="stat-item"><span class="stat-label">已使用項目 平均天數</span><span class="stat-value" style="color:var(--matcha-dark);">${avgDays} 天</span></div>
+                <div class="stat-item"><span class="stat-label">已使用項目 採計筆數</span><span class="stat-value" style="font-size:15px; font-weight:normal; margin-top:2px; color:var(--text-light);">共 ${validCount} 筆</span></div>
             `;
         }
 
