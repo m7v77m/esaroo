@@ -3405,7 +3405,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             panel.innerHTML = `
                 <div class="stat-item">
                     <span class="stat-label">當前統計範圍</span>
-                    <span class="stat-value" style="font-size:13px; margin-top:2px; color:var(--text-light);">${scopeText}</span>
+                    <span class="stat-value" style="font-size:15px; margin-top:2px; color:var(--text-light);">${scopeText}</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">區間總用電量</span>
@@ -3593,7 +3593,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                         <tr style="${rowStyle}">
                             <td style="text-align:center;"><input type="checkbox" class="item-checkbox" value="${item.id}"></td>
                             <td style="color:var(--text-light); font-weight:500;">${displayCategory}</td>
-                            <td><strong>${item.name}</strong></td>
+                            <td>${item.name}</td>
                             <td>${item.start}</td>
                             <td>${item.end || '-'}</td>
                             <td>${daysUsed}</td>
