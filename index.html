@@ -1110,13 +1110,27 @@ table {
     gap: 15px !important;
 }
 
-/* 2. 電費統計那4格：當前統計範圍 / 區間總用電量 / 區間電費總額 / 數據筆數 - 平均分散置中 */
+/* 2. 電費統計那6格：當前統計範圍 / 區間總用電量 / 區間電費總額 / 區間平均度數 / 區間平均金額 / 數據筆數 - 平均分散置中 */
 #elecStats,
-.stats-panel#elecStats,
+.stats-panel#elecStats {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* 6格 = 3欄 x 2列，跟手機版2欄邏輯呼應 */
+    gap: 12px 15px !important;
+    justify-items: center !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    text-align: center !important;
+    padding: 12px 15px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    column-gap: 15px !important;
+}
+
+/* 用品統計維持原本4等分（不受電費統計改版影響） */
 #itemStats {
     display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important; /* 4等分 */
-    gap: 15px !important; /* 4格之間的縫隙也15px */
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 15px !important;
     justify-items: center !important;
     align-items: center !important;
     justify-content: space-between !important;
@@ -3399,9 +3413,12 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                     </div>`;
                 return;
             }
-            let totalKwh = 0;
-            records.forEach(r => { let v = parseFloat(r.diffStr); if (!isNaN(v)) totalKwh += v; });
+            let totalKwh = 0, validCount = 0;
+            records.forEach(r => { let v = parseFloat(r.diffStr); if (!isNaN(v)) { totalKwh += v; validCount++; } });
             let totalCost = (Math.trunc(totalKwh * ELEC_RATE * 100) / 100).toFixed(2);
+            // 平均度數／平均金額：只用「有產生度數」的筆數平均（第一筆沒有前次度數可比較，diffStr 是 "-"，不列入平均）
+            let avgKwh = validCount > 0 ? totalKwh / validCount : 0;
+            let avgCost = validCount > 0 ? (totalKwh * ELEC_RATE) / validCount : 0;
             panel.innerHTML = `
                 <div class="stat-item">
                     <span class="stat-label">當前統計範圍</span>
@@ -3414,6 +3431,14 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 <div class="stat-item">
                     <span class="stat-label">區間電費總額</span>
                     <span class="stat-value" style="color:var(--danger);">${totalCost} 元</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">區間平均度數</span>
+                    <span class="stat-value">${avgKwh.toFixed(2)} 度</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">區間平均金額</span>
+                    <span class="stat-value" style="color:var(--danger);">${(Math.trunc(avgCost * 100) / 100).toFixed(2)} 元</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">數據筆數顯示</span>
