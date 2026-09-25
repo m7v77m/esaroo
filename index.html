@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2280%22>🐨</text></svg>">    <meta charset="UTF-8">
@@ -1829,7 +1829,9 @@ table {
     }
 }
 
-</style>
+
+        #elecStats { display: none !important; }
+        </style>
 
 <style>
 /* ============================================================
@@ -2542,18 +2544,23 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                         <label>關鍵字串</label>
                         <input type="text" id="elecFilterKeyword" placeholder="輸入備註內容" oninput="renderElectricity()">
                     </div>
+                    <button class="btn-sm btn-save" style="background-color:var(--matcha); color:white; white-space:nowrap; height:38px;" onclick="filterElecByKeyword()">🔍 只看含「電費」</button>
+                    <button class="btn-sm" style="background-color:var(--milk-tea-dark); color:white; white-space:nowrap; height:38px;" onclick="selectAllFilteredElec()">☑️ 全選篩選結果</button>
                     <button class="btn-reset" onclick="resetFilters('electricity')">重新設定</button>
                 </div>
-                <div class="stats-panel" id="elecStats" style="flex:1; min-width:300px;padding:12px 40px;display:flex;align-items:center;"></div>
+                <div class="stats-panel" id="elecStats" style="display:none !important;flex:1; min-width:300px;padding:12px 40px;align-items:center;"></div>
             </div>
 
            <div class="batch-panel" id="elecSelectionPanel" style="display:none; margin-bottom:12px; padding:8px 15px; display: flex; align-items: center; flex-wrap: wrap;">
     <span class="batch-title">☑️ 已選取統計：</span>
     <span style="font-size:13px; color:var(--text-light);">已選項目 <strong id="selElecCount">0</strong> 筆</span>
-    <span style="font-size:13px; color:var(--text-light);">｜用電總量: <strong id="selElecKwh">0.00</strong> 度</span>
-    <span style="font-size:13px; color:var(--danger); font-weight:600;">｜電費總額: <strong id="selElecCost">0.00</strong> 元</span>
-    <span style="font-size:13px; color:var(--text-light);">｜平均用電: <strong id="selElecAvgKwh">0.00</strong> 度</span>
-    <span style="font-size:13px; color:var(--danger); font-weight:600;">｜平均電費: <strong id="selElecAvgCost">0.00</strong> 元</span>
+    <span style="font-size:13px; color:var(--text-light);">｜產生單度：<strong id="selElecKwh">0.00</strong> 度</span>
+    <span style="font-size:13px; color:var(--danger); font-weight:600;">｜產生單額：<strong id="selElecCost">0.00</strong> 元</span>
+    <span style="font-size:13px; color:var(--text-light);">｜平均單度：<strong id="selElecAvgKwh">0.00</strong> 度</span>
+    <span style="font-size:13px; color:var(--danger); font-weight:600;">｜平均單電：<strong id="selElecAvgCost">0.00</strong> 元</span>
+    <span style="font-size:13px; color:var(--text-light);">｜電費週期：<strong id="selElecPeriod">0</strong> 天</span>
+    <span style="font-size:13px; color:var(--danger); font-weight:600;">｜電費總額：<strong id="selElecNoteCost">0</strong> 元</span>
+    <span style="font-size:13px; color:var(--text-light);">｜電費平均：<strong id="selElecNoteAvg">0.00</strong> 元</span>
     
     <!-- 終極縮小按鈕（已經把舊的刪除囉！） -->
     <button class="btn-sm btn-save" style="margin-left: 10px; width: max-content !important; flex-grow: 0 !important; flex-shrink: 0 !important;" onclick="autoFillSerial()">自動依序編號</button>
@@ -2575,7 +2582,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 </div>
                 <div class="input-box" style="flex-grow:1; max-width:250px;">
                     <label>備註內容</label>
-                    <input type="text" id="elecNote" placeholder="5元*尚餘30天=150元+前一天度數18729=18879度">
+                    <input type="text" id="elecNote" placeholder="5元*尚餘30天=150元+前天度數18729=18879度">
                 </div>
                 <button class="btn-add" onclick="addElectricity()">新增紀錄</button>
             </div>
@@ -3267,14 +3274,42 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             }
         }
 
-        function calcElecSelection() {
+        
+        // 解析備註內的電費金額，例如 "8月*電費860元" -> 860
+        function parseNoteElecCost(note) {
+            if (!note || !note.includes('電費')) return 0;
+            let m = note.match(/電費[^\d]{0,5}(\d+(?:\.\d+)?)\s*元/);
+            if (m) return parseFloat(m[1]);
+            m = note.match(/(\d+(?:\.\d+)?)\s*元[^\d]{0,5}電費/);
+            if (m) return parseFloat(m[1]);
+            m = note.match(/電費[^\d]{0,5}(\d+(?:\.\d+)?)/);
+            if (m) return parseFloat(m[1]);
+            return 0;
+        }
+        // 一鍵篩選備註含「電費」的紀錄
+        function filterElecByKeyword() {
+            const input = document.getElementById('elecFilterKeyword');
+            if (input) {
+                input.value = '電費';
+                renderElectricity();
+            }
+        }
+        // 一鍵全選目前篩選後的結果
+        function selectAllFilteredElec() {
+            document.querySelectorAll('.elec-checkbox').forEach(cb => cb.checked = true);
+            calcElecSelection();
+        }
+
+                function calcElecSelection() {
             const checkboxes = document.querySelectorAll('.elec-checkbox:checked');
             const panel = document.getElementById('elecSelectionPanel');
             if (checkboxes.length === 0) { panel.style.display = 'none'; return; }
             panel.style.display = 'flex';
             let count = 0,
                 totalKwh = 0,
-                validKwhCount = 0;
+                validKwhCount = 0,
+                dates = [],
+                noteCostTotal = 0;
             checkboxes.forEach(cb => {
                 count++;
                 const kwhStr = cb.getAttribute('data-kwh');
@@ -3282,19 +3317,44 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 	totalKwh += parseFloat(kwhStr) || 0; 
                 	validKwhCount++;
                 }
+                const dateStr = cb.getAttribute('data-date');
+                if (dateStr) {
+                    const d = new Date(dateStr);
+                    if (!isNaN(d.getTime())) dates.push(d);
+                }
+                const recId = parseInt(cb.value);
+                const rec = appData.electricity.find(r => r.id === recId);
+                if (rec && rec.note) {
+                    noteCostTotal += parseNoteElecCost(rec.note);
+                }
             });
             const totalCost = (Math.trunc(totalKwh * ELEC_RATE * 100) / 100).toFixed(2);
-            // 計算平均度數與平均電費
-		    let avgKwh = 0, avgCost = 0;
-		    if (validKwhCount > 0) {
-		        avgKwh = totalKwh / validKwhCount;
-		        avgCost = (totalKwh * ELEC_RATE) / validKwhCount;
-		    }
+            let avgKwh = 0, avgCost = 0;
+            if (validKwhCount > 0) {
+                avgKwh = totalKwh / validKwhCount;
+                avgCost = (totalKwh * ELEC_RATE) / validKwhCount;
+            }
+            let periodDays = 0;
+            if (dates.length > 0) {
+                dates.sort((a,b) => a - b);
+                const minDate = dates[0];
+                const maxDate = dates[dates.length - 1];
+                const diffMs = maxDate - minDate;
+                const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                periodDays = dates.length === 1 ? 1 : diffDays + 1;
+                if (periodDays < 1) periodDays = 1;
+            }
             document.getElementById('selElecCount').textContent = count;
             document.getElementById('selElecKwh').textContent = totalKwh.toFixed(2);
             document.getElementById('selElecCost').textContent = totalCost;
             document.getElementById('selElecAvgKwh').textContent = avgKwh.toFixed(2);
-   			document.getElementById('selElecAvgCost').textContent = (Math.trunc(avgCost * 100) / 100).toFixed(2);
+            document.getElementById('selElecAvgCost').textContent = (Math.trunc(avgCost * 100) / 100).toFixed(2);
+            const periodEl = document.getElementById('selElecPeriod');
+            if (periodEl) periodEl.textContent = periodDays;
+            const noteCostEl = document.getElementById('selElecNoteCost');
+            if (noteCostEl) noteCostEl.textContent = noteCostTotal.toFixed(0);
+            const noteAvgEl = document.getElementById('selElecNoteAvg');
+            if (noteAvgEl) noteAvgEl.textContent = count>0 ? (noteCostTotal/count).toFixed(2) : '0.00';
         }
 
         function renderElectricity() {
@@ -3365,7 +3425,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 } else {
                     tbody.innerHTML += `
                         <tr>
-                            <td style="text-align:center;"><input type="checkbox" class="elec-checkbox" value="${rec.id}" data-kwh="${rec.diffStr}" onchange="calcElecSelection()"></td>
+                            <td style="text-align:center;"><input type="checkbox" class="elec-checkbox" value="${rec.id}" data-kwh="${rec.diffStr}" data-date="${rec.date}" onchange="calcElecSelection()"></td>
                             <td style="text-align:center; color:var(--text-light);">${rec.serial || '-'}</td>
                             <td>${rec.date} ${weekday}</td>
                             <td>${rec.value}</td>
@@ -4047,6 +4107,21 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
     window.addEventListener('resize', function(){
         if (window.matchMedia('(max-width: 768px)').matches) apply();
     });
+})();
+</script>
+
+
+<script>
+// 強制隱藏舊的總覽綠框
+(function(){ 
+  const el = document.getElementById('elecStats');
+  if(el){ el.style.display='none'; el.style.setProperty('display','none','important'); }
+  // 用 MutationObserver 確保 render 後也隱藏（因為 calculateElecStats 會改 innerHTML 但不會改 display）
+  const obs = new MutationObserver(()=>{ 
+    const e=document.getElementById('elecStats');
+    if(e && e.style.display!=='none'){ e.style.display='none'; }
+  });
+  if(el) obs.observe(el, {attributes:true, childList:true});
 })();
 </script>
 
