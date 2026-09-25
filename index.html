@@ -768,7 +768,7 @@ table:has(#bowelTableBody) td {
 /* 左右平均，不讓左邊特別寬 */
 #tab-items .top-controls-wrapper > .search-panel.tab-search-panel {
     flex: 1 1 0 !important; /* 平均分 */
-    max-width: 60% !important; /* 左邊最多58%，不會過寬 */
+    max-width: 100% !important; /* 左邊最多58%，不會過寬 */
     min-width: 0 !important;
 }
 
@@ -959,7 +959,7 @@ table:has(#bowelTableBody) td {
 .batch-panel,
 .stats-panel,
 .tab-content {
-    overflow: hidden !important;
+    overflow: visible !important;
 }
 
 /* 確保圓角不會溢出 */
@@ -1075,7 +1075,7 @@ table {
 .search-panel,
 .batch-panel,
 .stats-panel {
-    overflow: hidden !important;
+    overflow: visible !important;
 }
 .search-panel::before,
 .search-panel::after,
@@ -1085,8 +1085,8 @@ table {
 .stats-panel::after,
 .main-container::before,
 .main-container::after {
-    display: none !important;
-    content: none !important;
+    display: block !important;
+    content:  normal !important;
 }
 
 
@@ -1174,7 +1174,7 @@ table {
 .stats-panel,
 .main-container {
     border-radius: 15px !important;
-    overflow: hidden !important;
+    overflow: visible !important;
 }
 
 .search-panel::before,
@@ -1183,8 +1183,8 @@ table {
 .batch-panel::after,
 .stats-panel::before,
 .stats-panel::after {
-    display: none !important;
-    content: none !important;
+    display: block !important;
+    content: normal !important;
 }
 
 
@@ -1361,8 +1361,8 @@ table {
 
         .tag-container {
             width: 100%;
-            overflow-x: auto;
-            flex-wrap: nowrap !important;
+            overflow: auto;
+            
             padding-bottom: 4px;
             -webkit-overflow-scrolling: touch;
         }
@@ -1551,7 +1551,7 @@ table {
 @media screen and (max-width: 768px) {
     /* 用品：移除「用品紀錄搜尋」面板的視覺佔位，保留原本 DOM 與篩選邏輯 */
     #tab-items .search-panel.tab-search-panel {
-        display: none !important;
+        display: block !important;
     }
 
     #tab-items .top-controls-wrapper {
@@ -1725,7 +1725,7 @@ table {
 @media screen and (max-width: 768px) {
     /* 用品頁：既然「用品紀錄搜尋」已移除，新增用品區直接吃滿整張手機卡片。 */
     #tab-items .search-panel.tab-search-panel {
-        display: none !important;
+        display: block !important;
     }
     #tab-items .top-controls-wrapper {
         display: block !important;
@@ -1975,7 +1975,7 @@ table {
 @media screen and (max-width: 768px) {
     /* 用品頁不再顯示搜尋區，新增紀錄區直接滿版。 */
     #tab-items .search-panel.tab-search-panel {
-        display: none !important;
+        display: block !important;
     }
     #tab-items .top-controls-wrapper {
         display: block !important;
@@ -2115,7 +2115,7 @@ table {
 
     /* 搜尋區手機版完全不佔寬度。 */
     #tab-items .search-panel.tab-search-panel {
-        display: none !important;
+        display: block !important;
     }
 
     /* 關鍵：用品新增區取消桌機版 flex/max-width 限制，直接吃滿父卡片。 */
@@ -2221,7 +2221,7 @@ table {
 
     /* 搜尋區不顯示；真正的用品輸入卡片由 JS 移到 wrapper 外。 */
     #tab-items .search-panel.tab-search-panel {
-        display: none !important;
+        display: block !important;
     }
 
     /* JS 搬移後，這個 wrapper 只剩隱藏搜尋區；不再參與用品版面寬度計算。 */
