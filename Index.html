@@ -1829,7 +1829,9 @@ table {
     }
 }
 
-</style>
+
+        #elecStats { display: none !important; }
+        </style>
 
 <style>
 /* ============================================================
@@ -2542,9 +2544,11 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                         <label>關鍵字串</label>
                         <input type="text" id="elecFilterKeyword" placeholder="輸入備註內容" oninput="renderElectricity()">
                     </div>
+                    <button class="btn-sm btn-save" style="background-color:var(--matcha); color:white; white-space:nowrap; height:38px;" onclick="filterElecByKeyword()">🔍 只看含「電費」</button>
+                    <button class="btn-sm" style="background-color:var(--milk-tea-dark); color:white; white-space:nowrap; height:38px;" onclick="selectAllFilteredElec()">☑️ 全選篩選結果</button>
                     <button class="btn-reset" onclick="resetFilters('electricity')">重新設定</button>
                 </div>
-                <div class="stats-panel" id="elecStats" style="flex:1; min-width:300px;padding:12px 40px;display:flex;align-items:center;"></div>
+                <div class="stats-panel" id="elecStats" style="display:none !important;flex:1; min-width:300px;padding:12px 40px;align-items:center;"></div>
             </div>
 
            <div class="batch-panel" id="elecSelectionPanel" style="display:none; margin-bottom:12px; padding:8px 15px; display: flex; align-items: center; flex-wrap: wrap;">
@@ -3278,10 +3282,22 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             if (m) return parseFloat(m[1]);
             m = note.match(/(\d+(?:\.\d+)?)\s*元[^\d]{0,5}電費/);
             if (m) return parseFloat(m[1]);
-            // 再寬鬆一點：電費 860
             m = note.match(/電費[^\d]{0,5}(\d+(?:\.\d+)?)/);
             if (m) return parseFloat(m[1]);
             return 0;
+        }
+        // 一鍵篩選備註含「電費」的紀錄
+        function filterElecByKeyword() {
+            const input = document.getElementById('elecFilterKeyword');
+            if (input) {
+                input.value = '電費';
+                renderElectricity();
+            }
+        }
+        // 一鍵全選目前篩選後的結果
+        function selectAllFilteredElec() {
+            document.querySelectorAll('.elec-checkbox').forEach(cb => cb.checked = true);
+            calcElecSelection();
         }
 
                 function calcElecSelection() {
@@ -3313,13 +3329,11 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 }
             });
             const totalCost = (Math.trunc(totalKwh * ELEC_RATE * 100) / 100).toFixed(2);
-            // 計算平均度數與平均電費
-		    let avgKwh = 0, avgCost = 0;
-		    if (validKwhCount > 0) {
-		        avgKwh = totalKwh / validKwhCount;
-		        avgCost = (totalKwh * ELEC_RATE) / validKwhCount;
-		    }
-            // 計算電費週期天數：最早到最晚的日期差（含頭尾）
+            let avgKwh = 0, avgCost = 0;
+            if (validKwhCount > 0) {
+                avgKwh = totalKwh / validKwhCount;
+                avgCost = (totalKwh * ELEC_RATE) / validKwhCount;
+            }
             let periodDays = 0;
             if (dates.length > 0) {
                 dates.sort((a,b) => a - b);
@@ -3334,7 +3348,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             document.getElementById('selElecKwh').textContent = totalKwh.toFixed(2);
             document.getElementById('selElecCost').textContent = totalCost;
             document.getElementById('selElecAvgKwh').textContent = avgKwh.toFixed(2);
-  			document.getElementById('selElecAvgCost').textContent = (Math.trunc(avgCost * 100) / 100).toFixed(2);
+            document.getElementById('selElecAvgCost').textContent = (Math.trunc(avgCost * 100) / 100).toFixed(2);
             const periodEl = document.getElementById('selElecPeriod');
             if (periodEl) periodEl.textContent = periodDays;
             const noteCostEl = document.getElementById('selElecNoteCost');
@@ -3343,7 +3357,6 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
             if (noteAvgEl) noteAvgEl.textContent = count>0 ? (noteCostTotal/count).toFixed(2) : '0.00';
         }
 
-        
         function renderElectricity() {
             saveElecCheckboxStates();
             const tbody = document.getElementById('elecTableBody');
@@ -3447,12 +3460,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 return;
             }
             let totalKwh = 0;
-            let noteTotal = 0;
-            records.forEach(r => { 
-                let v = parseFloat(r.diffStr); 
-                if (!isNaN(v)) totalKwh += v; 
-                if (r.note) noteTotal += parseNoteElecCost(r.note);
-            });
+            records.forEach(r => { let v = parseFloat(r.diffStr); if (!isNaN(v)) totalKwh += v; });
             let totalCost = (Math.trunc(totalKwh * ELEC_RATE * 100) / 100).toFixed(2);
             panel.innerHTML = `
                 <div class="stat-item">
@@ -3460,16 +3468,12 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                     <span class="stat-value" style="font-size:15px; margin-top:2px; color:var(--text-light);">${scopeText}</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">區間總用電量(電錶)</span>
+                    <span class="stat-label">區間總用電量</span>
                     <span class="stat-value">${totalKwh.toFixed(2)} 度</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">區間電費(電錶×5)</span>
-                    <span class="stat-value" style="color:var(--text-light);">${totalCost} 元</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">區間備註電費(房東實收)</span>
-                    <span class="stat-value" style="color:var(--danger); font-weight:700;">${noteTotal.toFixed(0)} 元</span>
+                    <span class="stat-label">區間電費總額</span>
+                    <span class="stat-value" style="color:var(--danger);">${totalCost} 元</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">數據筆數顯示</span>
@@ -4103,6 +4107,21 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
     window.addEventListener('resize', function(){
         if (window.matchMedia('(max-width: 768px)').matches) apply();
     });
+})();
+</script>
+
+
+<script>
+// 強制隱藏舊的總覽綠框
+(function(){ 
+  const el = document.getElementById('elecStats');
+  if(el){ el.style.display='none'; el.style.setProperty('display','none','important'); }
+  // 用 MutationObserver 確保 render 後也隱藏（因為 calculateElecStats 會改 innerHTML 但不會改 display）
+  const obs = new MutationObserver(()=>{ 
+    const e=document.getElementById('elecStats');
+    if(e && e.style.display!=='none'){ e.style.display='none'; }
+  });
+  if(el) obs.observe(el, {attributes:true, childList:true});
 })();
 </script>
 
