@@ -2752,16 +2752,18 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 <div class="stats-panel" id="bowelStats" style="flex:1; min-width:300px;padding-left:70px;"></div>
             </div>
 
-            <div class="form-group">
-                <div class="input-box">
-                    <label>發生日期</label>
-                    <input type="date" id="bowelDate">
-                </div>
-                <div class="input-box">
-                    <label>紀錄時間</label>
-                    <input type="time" id="bowelTime" step="60">
-                </div>
-                <div class="input-box" style="flex-grow:1; max-width:600px;">
+            <div class="form-group" style="display:flex; flex-direction:column; gap:8px; align-items:flex-start;">
+                <div style="display:flex; gap:8px; width:100%; max-width:600px;">
+			        <div class="input-box" style="flex:1 1 0;">
+			            <label>發生日期</label>
+			            <input type="date" id="bowelDate" style="width:100%;">
+			        </div>
+			        <div class="input-box" style="flex:0 0 150px;">
+			            <label>紀錄時間</label>
+			            <input type="time" id="bowelTime" step="60" style="width:100%;">
+			        </div>
+			    </div>
+                <div class="input-box" style="flex:1; max-width:600px;">
                     <label>備註內容</label>
                     <input type="text" id="bowelNote" placeholder="一短一長、大小顆粒、腹痛腹瀉、...">
                 </div>
