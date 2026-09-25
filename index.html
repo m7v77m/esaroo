@@ -3736,6 +3736,7 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
                 saveData();
             }
         }
+        
 
         function renderBowel() {
             const tbody = document.getElementById('bowelTableBody');
@@ -3803,30 +3804,65 @@ body :is(#tab-elec, #tab-items, #tab-other) .date-with-today .today-btn {
 
         function calculateBowelStats(records) {
             const statsPanel = document.getElementById('bowelStats');
+            if (!statsPanel) return;
             if (records.length === 0) {
                 statsPanel.innerHTML =
                     `<p style="color:var(--text-muted); margin:0; font-size:13px;">目前篩選範圍內無紀錄可計算數據。</p>`;
                 return;
             }
-            const now = new Date();
-            const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-            const sevenDaysAgo = new Date();
-            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-            let thisWeekCount = 0,
-                thisMonthCount = 0;
+            // 讀取目前篩選的日期範圍
+            const filterStartStr = document.getElementById('bowelFilterStartDate')?.value || '';
+            const filterEndStr = document.getElementById('bowelFilterEndDate')?.value || '';
+
+            const toDate = (s) => s ? new Date(s) : null;
+            const startFilterDate = toDate(filterStartStr);
+            const endFilterDate = toDate(filterEndStr);
+
+            // 決定統計的基準結束日：有選結束日就用結束日，否則用篩選資料中的最後一天
+            const sortedByDateAsc = [...records].sort((a,b)=> new Date(a.date) - new Date(b.date));
+            const lastRecordDate = new Date(sortedByDateAsc[sortedByDateAsc.length-1].date);
+            const baseEndDate = endFilterDate || lastRecordDate;
+            const baseStartDate = startFilterDate || new Date(sortedByDateAsc[0].date);
+
+            // 計算所選範圍的總天數（包含頭尾）
+            const msPerDay = 1000*60*60*24;
+            const rangeDays = Math.max(1, Math.ceil((baseEndDate - baseStartDate)/msPerDay) + 1);
+
+            // 1) 一週次數：以 baseEndDate 往回7天（含當天）計算在篩選結果內的筆數
+            const sevenDaysAgoInRange = new Date(baseEndDate);
+            sevenDaysAgoInRange.setDate(sevenDaysAgoInRange.getDate() - 6); // 7天含當天
+            let thisWeekCount = 0;
+            // 2) 本月次數：以 baseEndDate 所在月份計算在篩選結果內的筆數；若未選範圍則為篩選結果總數
+            let thisMonthCount = 0;
+            const baseMonth = baseEndDate.getMonth();
+            const baseYear = baseEndDate.getFullYear();
+
             records.forEach(r => {
                 const rDate = new Date(r.date);
-                if (rDate >= sevenDaysAgo) thisWeekCount++;
-                if (rDate >= startOfMonth && rDate.getMonth() === now.getMonth()) thisMonthCount++;
+                if (rDate >= sevenDaysAgoInRange && rDate <= baseEndDate) thisWeekCount++;
+                if (rDate.getMonth() === baseMonth && rDate.getFullYear() === baseYear) thisMonthCount++;
             });
-            const earliestDate = new Date(records[records.length - 1].date);
-            const totalDaysTracked = Math.max(1, Math.ceil((now - earliestDate) / (1000 * 60 * 60 * 24)));
-            const avgPerDay = records.length / totalDaysTracked;
+
+            // 如果範圍不足7天，七天次數就等於範圍總數，避免顯示0
+            if (rangeDays <= 7) {
+                thisWeekCount = records.length;
+            }
+            // 如果有明確篩選，本月次數顯示為「所選範圍總計」更直觀
+            const totalInRange = records.length;
+
+            // 3) 長期週均：以實際篩選範圍天數計算
+            const avgPerDay = totalInRange / rangeDays;
             const avgPerWeek = (avgPerDay * 7).toFixed(1);
+
+            // 標籤根據是否有篩選動態調整
+            const weekLabel = rangeDays <= 7 ? `所選範圍 共${rangeDays}天` : `所選範圍 近7天`;
+            const monthLabel = filterStartStr || filterEndStr ? `所選範圍 總計` : `所選範圍 本月次數`;
+            const monthValueText = filterStartStr || filterEndStr ? `累計 ${totalInRange} 次` : `本月 ${thisMonthCount} 次 / 總計 ${totalInRange} 次`;
+
             statsPanel.innerHTML = `
-                <div class="stat-item"><span class="stat-label">所選範圍 一週次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">七天 ${thisWeekCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍 本月次數</span><span class="stat-value" style="text-align:center;padding-top:10px;">累計 ${thisMonthCount} 次</span></div>
-                <div class="stat-item"><span class="stat-label">所選範圍 長期週均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
+                <div class="stat-item"><span class="stat-label">${weekLabel}</span><span class="stat-value" style="text-align:center;padding-top:10px;">${thisWeekCount} 次</span></div>
+                <div class="stat-item"><span class="stat-label">${monthLabel}</span><span class="stat-value" style="text-align:center;padding-top:10px;">${monthValueText}</span></div>
+                <div class="stat-item"><span class="stat-label">所選範圍 週均</span><span class="stat-value" style="text-align:center;padding-top:10px;">每週 ${avgPerWeek} 次</span></div>
             `;
         }
 
